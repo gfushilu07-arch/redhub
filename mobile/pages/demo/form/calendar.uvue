@@ -1,0 +1,206 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('选择器')">
+				<mx-calendar-select v-model="date"></mx-calendar-select>
+			</demo-item>
+
+			<demo-item :label="t('多选')">
+				<mx-calendar-select v-model:date="dateArr" mode="multiple"></mx-calendar-select>
+			</demo-item>
+
+			<demo-item :label="t('范围选')">
+				<mx-calendar-select v-model:date="dateRange" mode="range"></mx-calendar-select>
+			</demo-item>
+
+			<demo-item :label="t('开始 / 结束')">
+				<mx-calendar-select
+					v-model:date="dateRange3"
+					mode="range"
+					:start="startDate"
+					:end="endDate"
+				></mx-calendar-select>
+			</demo-item>
+
+			<demo-item :label="t('禁用部分日期')">
+				<mx-calendar-select v-model="date" :date-config="dateConfig"></mx-calendar-select>
+			</demo-item>
+
+			<!-- <demo-item :label="t('日历长列表')">
+				<mx-button>{{ t("打开日历长列表") }}</mx-button>
+			</demo-item> -->
+
+			<demo-item :label="t('日历面板')">
+				<mx-calendar
+					v-model:date="dateRange2"
+					mode="range"
+					:year="2025"
+					:month="10"
+					:show-header="isShowHeader"
+					:show-weeks="isShowWeeks"
+					:show-other-month="isShowOtherMonth"
+					:date-config="dateConfig2"
+					@change="onChange"
+				></mx-calendar>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-5'
+					}"
+				>
+					<mx-list-item :label="t('自定义文案和颜色')">
+						<mx-switch v-model="isCustomDateConfig"></mx-switch>
+					</mx-list-item>
+					<mx-list-item :label="t('显示头')">
+						<mx-switch v-model="isShowHeader"></mx-switch>
+					</mx-list-item>
+					<mx-list-item :label="t('显示星期')">
+						<mx-switch v-model="isShowWeeks"></mx-switch>
+					</mx-list-item>
+					<mx-list-item :label="t('显示其他月份')">
+						<mx-switch v-model="isShowOtherMonth"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { computed, ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { dayUts, first, last, t } from "@/.mx";
+import type { MxCalendarDateConfig } from "@/uni_modules/mx-ui";
+
+const date = ref<string | null>(dayUts().format("YYYY-MM-DD"));
+
+const dateArr = ref<string[]>([
+	dayUts().format("YYYY-MM-DD"),
+	dayUts().add(1, "day").format("YYYY-MM-DD")
+]);
+
+const dateRange = ref<string[]>([
+	dayUts().format("YYYY-MM-DD"),
+	dayUts().add(10, "day").format("YYYY-MM-DD")
+]);
+
+const dateConfig = ref<MxCalendarDateConfig[]>([
+	{
+		date: dayUts().add(1, "day").format("YYYY-MM-DD"),
+		disabled: true
+	},
+	{
+		date: dayUts().add(2, "day").format("YYYY-MM-DD"),
+		disabled: true
+	},
+	{
+		date: dayUts().add(3, "day").format("YYYY-MM-DD"),
+		disabled: true
+	}
+]);
+
+const isShowHeader = ref(true);
+const isShowWeeks = ref(true);
+const isShowOtherMonth = ref(true);
+const isCustomDateConfig = ref(true);
+
+const dateRange2 = ref<string[]>([]);
+
+const dateConfig2 = computed(() => {
+	const dates = (
+		isCustomDateConfig.value
+			? [
+					{
+						date: "2025-10-01",
+						topText: "国庆节",
+						bottomText: "¥958",
+						color: "red"
+					},
+					{
+						date: "2025-10-02",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					},
+					{
+						date: "2025-10-03",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					},
+					{
+						date: "2025-10-04",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					},
+					{
+						date: "2025-10-05",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					},
+					{
+						date: "2025-10-06",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					},
+					{
+						date: "2025-10-07",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					},
+					{
+						date: "2025-10-08",
+						topText: "休",
+						bottomText: "¥613",
+						color: "red"
+					}
+				]
+			: []
+	) as MxCalendarDateConfig[];
+
+	const startDate = first(dateRange2.value);
+	const endDate = last(dateRange2.value);
+
+	if (startDate != null) {
+		const item = dates.find((e) => e.date == startDate);
+
+		if (item == null) {
+			dates.push({
+				date: startDate,
+				bottomText: "入住"
+			} as MxCalendarDateConfig);
+		} else {
+			item.bottomText = "入住";
+		}
+	}
+
+	if (endDate != null && dateRange2.value.length > 1) {
+		const item = dates.find((e) => e.date == endDate);
+
+		if (item == null) {
+			dates.push({
+				date: endDate,
+				bottomText: "离店"
+			} as MxCalendarDateConfig);
+		} else {
+			item.bottomText = "离店";
+		}
+	}
+
+	return dates;
+});
+
+const dateRange3 = ref<string[]>([]);
+
+const startDate = dayUts().format("YYYY-MM-DD");
+const endDate = dayUts().add(10, "day").format("YYYY-MM-DD");
+
+function onChange(date: string[]) {
+	console.log("日期变化:", date);
+}
+</script>

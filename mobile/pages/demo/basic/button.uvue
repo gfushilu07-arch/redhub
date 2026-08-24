@@ -1,0 +1,124 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-button>{{ t("普通") }}</mx-button>
+			</demo-item>
+
+			<demo-item :label="t('不同类型')">
+				<view class="flex flex-row flex-wrap mb-2 overflow-visible">
+					<mx-button type="primary">{{ t("主要") }}</mx-button>
+					<mx-button type="success">{{ t("成功") }}</mx-button>
+					<mx-button type="warn">{{ t("警告") }}</mx-button>
+
+					<mx-button type="error">{{ t("危险") }}</mx-button>
+					<mx-button type="info">{{ t("信息") }}</mx-button>
+				</view>
+
+				<view class="flex flex-row overflow-visible">
+					<mx-button type="light">{{ t("浅色") }}</mx-button>
+					<mx-button type="dark">{{ t("深色") }}</mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('只显示图标')">
+				<view class="flex flex-row">
+					<mx-button type="primary" icon="send-plane-fill"></mx-button>
+					<mx-button type="error" icon="verified-badge-fill"></mx-button>
+					<mx-button type="info" icon="edit-fill"></mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<view class="flex flex-row justify-center mb-5 h-14 items-center">
+					<mx-button
+						:type="type"
+						:size="size"
+						:text="isText"
+						:border="isBorder"
+						:rounded="isRounded"
+						:loading="isLoading"
+						:disabled="isDisabled"
+						:icon="isIcon ? 'send-plane-fill' : ''"
+						:color="isColor ? '#4286e0' : ''"
+						:pt="{
+							className: parseClass([
+								{
+									'!bg-transparent': isColor
+								}
+							])
+						}"
+						>{{ t("自定义") }}</mx-button
+					>
+				</view>
+
+				<mx-list border>
+					<view class="p-2">
+						<mx-tabs v-model="size" :list="sizeOptions" show-slider fill></mx-tabs>
+					</view>
+
+					<mx-list-item :label="t('文本模式')">
+						<mx-switch v-model="isText"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('带边框')">
+						<mx-switch v-model="isBorder"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('圆角按钮')">
+						<mx-switch v-model="isRounded"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('带左侧图标')">
+						<mx-switch v-model="isIcon"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('加载中')">
+						<mx-switch v-model="isLoading"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('自定义颜色')">
+						<mx-switch v-model="isColor"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import type { MxButtonType, MxTabsItem, Size } from "@/uni_modules/mx-ui";
+import { parseClass, t } from "@/.mx";
+
+const type = ref<MxButtonType>("primary");
+
+const isText = ref(false);
+const isBorder = ref(false);
+const isRounded = ref(false);
+const isLoading = ref(false);
+const isIcon = ref(false);
+const isDisabled = ref(false);
+const isColor = ref(false);
+
+const size = ref<Size>("normal");
+const sizeOptions = ref<MxTabsItem[]>([
+	{
+		label: t("小"),
+		value: "small"
+	},
+	{
+		label: t("默认"),
+		value: "normal"
+	},
+	{
+		label: t("大"),
+		value: "large"
+	}
+]);
+</script>

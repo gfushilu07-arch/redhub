@@ -1,0 +1,86 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-slider v-model="num"></mx-slider>
+			</demo-item>
+
+			<demo-item :label="t('范围选择')">
+				<mx-text
+					:pt="{
+						className: 'mb-3'
+					}"
+					>{{ num2[0] }} ～ {{ num2[1] }}</mx-text
+				>
+				<mx-slider v-model:values="num2" range></mx-slider>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<mx-slider
+					v-model="num3"
+					:disabled="isDisabled"
+					:show-value="isShowValue"
+					:block-size="isSize ? 24 : 20"
+					:track-height="isSize ? 6 : 4"
+					:step="isStep ? 10 : 1"
+					:max="isMax ? 50 : 100"
+					:pt="{
+						thumb: {
+							className: isColor ? '!bg-red-500' : ''
+						},
+						progress: {
+							className: isColor ? '!bg-red-200' : ''
+						}
+					}"
+				></mx-slider>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-3'
+					}"
+				>
+					<mx-list-item :label="t('显示值')">
+						<mx-switch v-model="isShowValue"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('步长10')">
+						<mx-switch v-model="isStep"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('滑块大点')">
+						<mx-switch v-model="isSize"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('换个颜色')">
+						<mx-switch v-model="isColor"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('最大50')">
+						<mx-switch v-model="isMax"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { t } from "@/.mx";
+
+const num = ref(60);
+const num2 = ref<number[]>([10, 20]);
+const num3 = ref(35);
+const isDisabled = ref(false);
+const isShowValue = ref(true);
+const isStep = ref(false);
+const isSize = ref(false);
+const isMax = ref(false);
+const isColor = ref(false);
+</script>

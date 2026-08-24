@@ -1,0 +1,76 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-rolling-number :value="value"></mx-rolling-number>
+
+				<view class="flex flex-row mt-2">
+					<mx-button icon="add-line" size="small" @tap="add"></mx-button>
+					<mx-button
+						icon="subtract-line"
+						type="light"
+						size="small"
+						@tap="sub"
+					></mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<view class="flex flex-col items-center">
+					<mx-rolling-number
+						:value="value"
+						:pt="{
+							className: parseClass([[isCustom, '!text-3xl']]),
+							color: isCustom ? 'primary' : ''
+						}"
+						:duration="isSpeed ? 300 : 1000"
+						:decimals="isDecimals ? 2 : 0"
+					></mx-rolling-number>
+
+					<view class="flex flex-row mt-2">
+						<mx-button icon="add-line" size="small" @tap="add"></mx-button>
+						<mx-button
+							icon="subtract-line"
+							type="light"
+							size="small"
+							@tap="sub"
+						></mx-button>
+					</view>
+				</view>
+
+				<mx-list border class="mt-3">
+					<mx-list-item :label="t('加快滚动速度')">
+						<mx-switch v-model="isSpeed"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('显示小数位数')">
+						<mx-switch v-model="isDecimals"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('自定义样式')">
+						<mx-switch v-model="isCustom"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import DemoItem from "../components/item.uvue";
+import { ref } from "vue";
+import { parseClass, t } from "@/.mx";
+
+const value = ref(100);
+const isSpeed = ref(false);
+const isDecimals = ref(false);
+const isCustom = ref(false);
+
+function add() {
+	value.value += 100;
+}
+
+function sub() {
+	value.value -= 100;
+}
+</script>

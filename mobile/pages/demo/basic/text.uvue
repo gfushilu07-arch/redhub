@@ -1,0 +1,85 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-text>云想衣裳花想容，春风拂槛露华浓。</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('自定义颜色')">
+				<mx-text color="primary" :pt="{ className: 'mb-2' }"
+					>明月松间照，清泉石上流。</mx-text
+				>
+				<mx-text color="error" :pt="{ className: 'mb-2' }"
+					>举头望明月，低头思故乡。</mx-text
+				>
+				<mx-text color="success" :pt="{ className: 'mb-2' }"
+					>春眠不觉晓，处处闻啼鸟。</mx-text
+				>
+				<mx-text color="warn" :pt="{ className: 'mb-2' }"
+					>劝君更尽一杯酒，西出阳关无故人。</mx-text
+				>
+				<mx-text color="info" :pt="{ className: 'mb-2' }"
+					>孤帆远影碧空尽，唯见长江天际流。</mx-text
+				>
+				<mx-text
+					:pt="{
+						className: 'text-sky-500'
+					}"
+					>大漠孤烟直，长河落日圆。</mx-text
+				>
+			</demo-item>
+
+			<demo-item :label="t('省略号')">
+				<mx-text ellipsis
+					>云想衣裳花想容，春风拂槛露华浓。若非群玉山头见，会向瑶台月下逢。</mx-text
+				>
+			</demo-item>
+
+			<demo-item :label="t('多行省略号')">
+				<mx-text ellipsis :lines="2"
+					>云想衣裳花想容，春风拂槛露华浓。若非群玉山头见，会向瑶台月下逢。天阶夜色凉如水，卧看牵牛织女星。人生若只如初见，何事秋风悲画扇。山有木兮木有枝，心悦君兮君不知。</mx-text
+				>
+			</demo-item>
+
+			<demo-item :label="t('字体大小')">
+				<mx-text v-for="i in 6" :key="i" :size="11 + i">{{ i + 11 }}px</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('金额')">
+				<mx-text type="amount" :value="10000000.0"></mx-text>
+			</demo-item>
+
+			<demo-item :label="t('手机号脱敏')">
+				<mx-text type="phone" mask value="13800138000"></mx-text>
+			</demo-item>
+
+			<demo-item :label="t('姓名脱敏')">
+				<mx-text type="name" mask value="张三"></mx-text>
+			</demo-item>
+
+			<demo-item :label="t('邮箱脱敏')">
+				<mx-text type="email" mask value="example@example.com"></mx-text>
+			</demo-item>
+
+			<demo-item :label="t('银行卡脱敏')">
+				<mx-text type="card" mask value="1234 5678 9012 3456"></mx-text>
+			</demo-item>
+
+			<demo-item :label="t('自定义脱敏字符')">
+				<mx-text type="phone" value="13800138000" mask mask-char="~"></mx-text>
+			</demo-item>
+
+			<demo-item :label="t('自定义图标')">
+				<view class="flex flex-row items-center">
+					<mx-icon name="fire-line" :pt="{ className: 'mr-1' }"></mx-icon>
+					<mx-text>云想衣裳花想容，春风拂槛露华浓。</mx-text>
+				</view>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+</script>

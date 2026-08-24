@@ -1,0 +1,80 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<view class="flex flex-row overflow-visible">
+					<mx-badge type="primary" value="1" class="mr-2"></mx-badge>
+					<mx-badge type="success" value="12" class="mr-2"></mx-badge>
+					<mx-badge type="warn" value="31" class="mr-2"></mx-badge>
+					<mx-badge type="error" value="24" class="mr-2"></mx-badge>
+					<mx-badge type="info" value="17" class="mr-2"></mx-badge>
+					<mx-badge type="primary" value="41" class="mr-2"></mx-badge>
+					<mx-badge type="success" value="56" class="mr-2"></mx-badge>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('结合按钮')">
+				<view class="flex flex-row overflow-visible">
+					<mx-button>
+						{{ t("购买") }}
+						<template #content>
+							<mx-badge type="error" value="1" position> </mx-badge>
+						</template>
+					</mx-button>
+
+					<mx-button :pt="{ className: '!ml-5' }">
+						{{ t("消息") }}
+						<template #content>
+							<mx-badge type="error" dot position> </mx-badge>
+						</template>
+					</mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('结合图片')">
+				<view class="flex flex-row overflow-visible">
+					<mx-image
+						:pt="{
+							className: 'overflow-visible'
+						}"
+						src="https://unix.redhub.example/images/demo/bg1.png"
+					>
+						<mx-badge type="error" value="+9" position> </mx-badge>
+					</mx-image>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('结合图标')">
+				<view class="flex flex-row overflow-visible">
+					<view class="relative overflow-visible">
+						<mx-icon name="mail-line" :size="18"> </mx-icon>
+						<mx-badge
+							type="error"
+							dot
+							position
+							:pt="{
+								className: '!top-[-3px] !right-[-3px]'
+							}"
+						>
+						</mx-badge>
+					</view>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('自定义样式')">
+				<view class="flex flex-row overflow-visible">
+					<mx-badge
+						type="info"
+						:pt="{ className: '!rounded-bl-none' }"
+						value="1"
+					></mx-badge>
+				</view>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+</script>

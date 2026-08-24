@@ -1,0 +1,118 @@
+<template>
+	<mx-page>
+		<Topbar />
+
+		<mx-banner
+			:list="bannerList"
+			:height="400"
+			:pt="{
+				className: '!rounded-none',
+				image: {
+					className: '!rounded-none'
+				}
+			}"
+		/>
+
+		<view class="card dark:!bg-surface-700" id="info">
+			<Info />
+		</view>
+
+		<view class="card !py-1 dark:!bg-surface-700">
+			<view
+				class="row border border-solid border-t-0 border-l-0 border-r-0 border-b-surface-100 dark:border-surface-600"
+			>
+				<mx-icon name="apps-line" :size="16"></mx-icon>
+
+				<view class="flex-1 ml-3">
+					<mx-text>已选：黑色 128GB + 碎屏险</mx-text>
+				</view>
+
+				<mx-icon name="arrow-right-s-line" :size="16"></mx-icon>
+			</view>
+
+			<view
+				class="row !items-start border border-solid border-t-0 border-l-0 border-r-0 border-b-surface-100 dark:border-surface-600"
+			>
+				<mx-icon name="truck-line" :size="16" :pt="{ className: '!mt-1' }"></mx-icon>
+
+				<view class="flex-1 ml-3">
+					<mx-text color="info">预计11月1日 周三 送达</mx-text>
+					<mx-text color="info" :pt="{ className: '!mt-1' }">深圳益田假日广场</mx-text>
+				</view>
+			</view>
+
+			<view class="row">
+				<mx-icon name="shield-check-line" :size="16"></mx-icon>
+
+				<view class="flex-1 ml-3">
+					<mx-text color="info">7天无理由退货 · 正品保证 · 极速发货 · 无忧售后</mx-text>
+				</view>
+			</view>
+		</view>
+
+		<view class="card dark:!bg-surface-700" id="comment">
+			<Comment />
+		</view>
+
+		<view class="card !p-0 dark:!bg-surface-700" id="desc">
+			<Desc />
+		</view>
+
+		<mx-footer>
+			<view class="flex flex-row overflow-visible">
+				<view class="flex flex-row mr-auto overflow-visible">
+					<view class="flex justify-center items-center px-4">
+						<mx-icon name="heart-line" :size="20"></mx-icon>
+						<mx-text :size="12" :pt="{ className: 'mt-1' }">收藏</mx-text>
+					</view>
+
+					<view
+						class="flex justify-center items-center px-4 overflow-visible"
+						@tap="router.to('/pages/template/shop/shopping-cart')"
+					>
+						<mx-icon name="shopping-cart-line" :size="20"></mx-icon>
+						<mx-text :size="12" :pt="{ className: 'mt-1' }">购物车</mx-text>
+
+						<mx-badge
+							type="error"
+							:value="3"
+							position
+							:pt="{ className: '!right-[12px] !top-[-4px] !scale-80' }"
+						></mx-badge>
+					</view>
+				</view>
+
+				<mx-button size="large" text border :pt="{ className: '!w-[120px]' }"
+					>加入购物车</mx-button
+				>
+				<mx-button size="large" :pt="{ className: '!w-[120px]' }">立即购买</mx-button>
+			</view>
+		</mx-footer>
+	</mx-page>
+</template>
+
+<script setup lang="ts">
+import { router } from "@/.mx";
+import { ref } from "vue";
+import Comment from "./comment.uvue";
+import Info from "./info.uvue";
+import Desc from "./desc.uvue";
+import Topbar from "./topbar.uvue";
+
+const bannerList = ref<string[]>([
+	"https://unix.redhub.example/images/demo/goods/banner-1.jpg",
+	"https://unix.redhub.example/images/demo/goods/banner-2.jpg",
+	"https://unix.redhub.example/images/demo/goods/banner-3.jpg",
+	"https://unix.redhub.example/images/demo/goods/banner-4.jpg"
+]);
+</script>
+
+<style lang="scss" scoped>
+.card {
+	@apply p-4 bg-white mb-3;
+
+	.row {
+		@apply flex flex-row items-center py-4;
+	}
+}
+</style>

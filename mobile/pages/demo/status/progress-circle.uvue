@@ -1,0 +1,69 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('自定义')">
+				<mx-progress-circle
+					:value="value"
+					:color="isColor ? 'red' : null"
+					:un-color="isColor ? '#f7bfbf' : null"
+					:size="isSize ? 80 : 120"
+					:show-text="isText"
+					:duration="isDuration ? 200 : 500"
+				></mx-progress-circle>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-5'
+					}"
+				>
+					<mx-list-item :label="t('改个颜色')">
+						<mx-switch v-model="isColor"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('显示文本')">
+						<mx-switch v-model="isText"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('快一些')">
+						<mx-switch v-model="isDuration"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('显示文本')">
+						<mx-button type="light" size="small" icon="add-line" @tap="add"></mx-button>
+						<mx-button
+							type="light"
+							size="small"
+							icon="subtract-line"
+							@tap="sub"
+						></mx-button>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+
+const isSize = ref(false);
+const isText = ref(true);
+const isColor = ref(false);
+const isDuration = ref(false);
+const value = ref(70);
+
+function add() {
+	if (value.value < 100) {
+		value.value += 10;
+	}
+}
+
+function sub() {
+	if (value.value > 0) {
+		value.value -= 10;
+	}
+}
+</script>

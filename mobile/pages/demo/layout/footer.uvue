@@ -1,0 +1,63 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item>
+				<mx-text>解决底部按钮隐藏时页面底部仍有空白间距</mx-text>
+				<mx-text>解决固定定位时内容占位缺失</mx-text>
+			</demo-item>
+
+			<mx-list>
+				<mx-list-item :label="`${i}`" v-for="i in 50" :key="i"> </mx-list-item>
+			</mx-list>
+		</view>
+
+		<mx-footer :vt="cache.key">
+			<template v-if="status == 0">
+				<view class="flex flex-row">
+					<mx-button :pt="{ className: 'flex-1' }" text border size="large" @tap="cancel">
+						{{ t("取消订单") }}
+					</mx-button>
+
+					<mx-button :pt="{ className: 'flex-1' }" type="primary" size="large" @tap="buy">
+						{{ t("立即购买") }}
+					</mx-button>
+				</view>
+			</template>
+
+			<mx-button type="error" size="large" @tap="confirm" v-if="status == 1">
+				{{ t("确认收货") }}
+			</mx-button>
+
+			<mx-button type="success" size="large" @tap="comment" v-if="status == 2">
+				{{ t("评价") }}
+			</mx-button>
+		</mx-footer>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { useCache } from "@/.mx";
+import { t } from "@/.mx";
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+
+const status = ref(0);
+
+const { cache } = useCache(() => [status.value]);
+
+function cancel() {
+	status.value = 3;
+}
+
+function buy() {
+	status.value = 1;
+}
+
+function confirm() {
+	status.value = 2;
+}
+
+function comment() {
+	status.value = 3;
+}
+</script>

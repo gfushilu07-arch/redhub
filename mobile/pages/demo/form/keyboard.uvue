@@ -1,0 +1,111 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('数字键盘')">
+				<view class="mb-3 overflow-visible">
+					<mx-input type="number" v-model="content"></mx-input>
+				</view>
+
+				<mx-button @tap="openKeyboardNumber">{{ t("打开键盘") }}</mx-button>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-3'
+					}"
+				>
+					<mx-list-item :label="t('是否显示输入值')">
+						<mx-switch v-model="isShowValue"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('输入即绑定')">
+						<mx-switch v-model="isInputImmediate"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('身份证键盘')">
+						<mx-switch v-model="isIdcard"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+
+			<demo-item :label="t('密码键盘')">
+				<mx-button @tap="openKeyboardPassword">{{ t("打开键盘") }}</mx-button>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-3'
+					}"
+				>
+					<mx-list-item :label="t('是否加密')">
+						<mx-switch v-model="isEncrypt"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+
+			<demo-item :label="t('车牌号键盘')">
+				<view class="flex mb-3 justify-center flex-row overflow-visible">
+					<mx-input-otp
+						input-type="text"
+						:length="8"
+						:pt="{
+							className: 'w-full',
+							list: {
+								className: 'justify-between'
+							},
+							item: {
+								className: '!h-9 !w-9'
+							},
+							cursor: {
+								className: '!h-3'
+							}
+						}"
+						v-model="carNumber"
+					></mx-input-otp>
+				</view>
+
+				<mx-button @tap="openKeyboardCar">{{ t("打开键盘") }}</mx-button>
+			</demo-item>
+		</view>
+
+		<mx-keyboard-number
+			v-model="content"
+			ref="keyboardNumberRef"
+			:show-value="isShowValue"
+			:input-immediate="isInputImmediate"
+			:type="isIdcard ? 'idcard' : 'number'"
+		></mx-keyboard-number>
+		<mx-keyboard-car v-model="carNumber" ref="keyboardCarRef"></mx-keyboard-car>
+		<mx-keyboard-password ref="keyboardPasswordRef" :encrypt="isEncrypt"></mx-keyboard-password>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { t } from "@/.mx";
+
+const keyboardNumberRef = ref<MxKeyboardNumberComponentPublicInstance | null>(null);
+const isShowValue = ref(true);
+const isInputImmediate = ref(false);
+const isIdcard = ref(false);
+const content = ref("");
+
+function openKeyboardNumber() {
+	keyboardNumberRef.value!.open();
+}
+
+const keyboardPasswordRef = ref<MxKeyboardPasswordComponentPublicInstance | null>(null);
+const isEncrypt = ref(false);
+
+function openKeyboardPassword() {
+	keyboardPasswordRef.value!.open();
+}
+
+const keyboardCarRef = ref<MxKeyboardCarComponentPublicInstance | null>(null);
+const carNumber = ref("");
+
+function openKeyboardCar() {
+	keyboardCarRef.value!.open();
+}
+</script>

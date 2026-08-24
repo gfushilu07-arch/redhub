@@ -1,0 +1,40 @@
+<template>
+	<mx-tabbar :model-value="path" :list="list" @select="onSelect"> </mx-tabbar>
+</template>
+
+<script setup lang="ts">
+import { ctx, getConfig, isDark, router, t } from "@/.mx";
+import type { MxTabbarItem } from "@/uni_modules/mx-ui";
+import { computed } from "vue";
+
+defineOptions({
+	name: "custom-tabbar"
+});
+
+// 当前路径
+const path = computed(() => router.path());
+
+// tabbar 列表
+const list = computed<MxTabbarItem[]>(() => {
+	return (ctx.tabBar.list ?? []).map((e) => {
+		return {
+			icon: e.iconPath,
+			selectedIcon: e.selectedIconPath,
+			value: e.pagePath,
+			text: t(e.text?.replaceAll("%", "")!)
+		} as MxTabbarItem;
+	});
+});
+
+// 选择 tabbar 项
+const onSelect = (item: MxTabbarItem) => {
+	router.to(item.value);
+};
+
+// 隐藏原生 tabBar
+// #ifndef MP
+if (ctx.tabBar.list != null) {
+	uni.hideTabBar();
+}
+// #endif
+</script>

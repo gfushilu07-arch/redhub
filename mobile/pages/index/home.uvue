@@ -1,0 +1,169 @@
+<template>
+	<mx-page>
+		<mx-topbar fixed :show-back="false" safe-area-top :height="isMp() ? null : 50" background-color="transparent" :pt="{ className: '!z-50' }">
+			<view class="flex flex-row items-center flex-1 w-full px-3 py-2">
+					<view class="brand-badge">
+						<mx-text :size="15" color="white" :pt="{ className: 'font-bold' }">Mx</mx-text>
+					</view>
+				<mx-text :size="17" :pt="{ className: 'ml-3 mr-auto font-bold' }">RedHub</mx-text>
+				<view class="round-action" :class="{ 'dark-action': isDark }" @tap="toLogin">
+					<mx-icon name="user-3-line" :size="16"></mx-icon>
+				</view>
+			</view>
+		</mx-topbar>
+
+		<view class="px-3 pb-28">
+			<view class="hero">
+				<mx-text :size="12" color="white" :pt="{ className: 'opacity-80' }">党务服务中心</mx-text>
+				<mx-text :size="21" color="white" :pt="{ className: 'mt-2 font-bold' }">组织连接服务</mx-text>
+				<mx-text :size="13" color="white" :pt="{ className: 'mt-2 opacity-85' }">统一身份 · 事务办理 · 学习教育</mx-text>
+			</view>
+
+			<mx-text :size="14" :pt="{ className: 'section-title font-bold' }">常用服务</mx-text>
+			<mx-row :gutter="10">
+				<mx-col v-for="item in actions" :key="item.label" :span="6">
+					<view class="action-card" :class="{ 'dark-action': isDark }" hover-class="opacity-80" :hover-stay-time="120" @tap="open(item.path)">
+						<view class="action-icon">
+							<mx-icon :name="item.icon" :size="18" color="#C41E3A"></mx-icon>
+						</view>
+						<mx-text :size="12" :pt="{ className: 'mt-2 text-center' }">{{ item.label }}</mx-text>
+					</view>
+				</mx-col>
+			</mx-row>
+
+			<mx-text :size="14" :pt="{ className: 'section-title font-bold' }">组织动态</mx-text>
+			<view class="notice-card" :class="{ 'dark-action': isDark }">
+				<view v-for="(item, index) in notices" :key="item.title" class="notice-item">
+					<view class="notice-dot"></view>
+					<view class="flex flex-col mr-auto">
+						<mx-text :size="13" ellipsis>{{ item.title }}</mx-text>
+						<mx-text :size="11" color="info" :pt="{ className: 'mt-1' }">{{ item.date }}</mx-text>
+					</view>
+					<mx-icon name="arrow-right-s-line" :size="16"></mx-icon>
+					<view v-if="index < notices.length - 1" class="divider"></view>
+				</view>
+			</view>
+
+			<mx-text :size="14" :pt="{ className: 'section-title font-bold' }">服务入口</mx-text>
+			<mx-list>
+				<mx-list-item v-for="item in services" :key="item.label" :label="item.label" :icon="item.icon" arrow hoverable @tap="open(item.path)"></mx-list-item>
+			</mx-list>
+		</view>
+
+		<custom-tabbar></custom-tabbar>
+	</mx-page>
+</template>
+
+<script setup lang="ts">
+import { isDark, isMp, router } from "@/.mx";
+import { computed } from "vue";
+import CustomTabbar from "./components/tabbar.uvue";
+
+type MenuItem = {
+	label: string;
+	icon: string;
+	path: string;
+};
+
+const actions = computed<MenuItem[]>(() => [
+	{ label: "组织生活", icon: "flag-line", path: "/pages/index/template" },
+	{ label: "学习教育", icon: "book-2-line", path: "/pages/index/template" },
+	{ label: "事项办理", icon: "file-copy-line", path: "/pages/index/template" },
+	{ label: "登录", icon: "login-circle-line", path: "/pages/user/login" }
+]);
+
+const notices = computed(() => [
+	{ title: "本月主题党日活动报名开始", date: "08-22" },
+	{ title: "志愿服务积分兑换通知", date: "08-20" },
+	{ title: "党员学习材料已更新", date: "08-18" }
+]);
+
+const services = computed<MenuItem[]>(() => [
+	{ label: "党费缴纳", icon: "wallet-line", path: "/pages/user/login" },
+	{ label: "活动预约", icon: "calendar-line", path: "/pages/index/template" },
+	{ label: "进度查询", icon: "history-line", path: "/pages/index/template" },
+	{ label: "个人中心", icon: "account-circle-line", path: "/pages/index/my" }
+]);
+
+function toLogin() {
+	router.to("/pages/user/login");
+}
+
+function open(path: string) {
+	router.to(path);
+}
+</script>
+
+<style lang="scss" scoped>
+.brand-badge {
+	@apply bg-primary-500 rounded-lg;
+	width: 34px;
+	height: 34px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.round-action {
+	@apply bg-white border border-solid border-surface-100 rounded-full;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.dark-action {
+	background-color: #1e293b;
+}
+
+.hero {
+	@apply bg-primary-500 rounded-3xl mt-3 px-5 py-7;
+}
+
+.section-title {
+	@apply block mb-3 mt-6;
+}
+
+.action-card {
+	@apply bg-white rounded-2xl mb-3 py-4;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.action-icon {
+	@apply bg-primary-50 rounded-xl;
+	width: 36px;
+	height: 36px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.notice-card {
+	@apply bg-white rounded-2xl px-4 py-2;
+}
+
+.notice-item {
+	position: relative;
+	height: 62px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.notice-dot {
+	@apply bg-primary-500 rounded-full mr-3;
+	width: 6px;
+	height: 6px;
+}
+
+.divider {
+	@apply bg-surface-100 absolute left-0 right-0 bottom-0;
+	height: 1px;
+}
+</style>

@@ -1,0 +1,144 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<view class="flex flex-row flex-wrap">
+					<mx-radio
+						v-model="checked2"
+						v-for="(item, index) in options"
+						:key="index"
+						:value="item.value"
+						:pt="{
+							className: 'mr-5'
+						}"
+					>
+						{{ item.label }}
+					</mx-radio>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('纵向排列')">
+				<mx-radio
+					v-model="checked"
+					v-for="(item, index) in options"
+					:key="index"
+					:value="item.value"
+					:pt="{
+						className: parseClass([
+							'my-2',
+							[
+								isVerticalCustom,
+								'justify-between border border-solid border-surface-200 rounded-lg p-2 !my-1'
+							]
+						])
+					}"
+				>
+					{{ item.label }}
+				</mx-radio>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-2'
+					}"
+				>
+					<mx-list-item :label="t('换个样式')">
+						<mx-switch v-model="isVerticalCustom"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<view class="mb-3 flex flex-row flex-wrap">
+					<mx-radio
+						v-model="checked3"
+						v-for="(item, index) in options"
+						:key="index"
+						:value="item.value"
+						:disabled="isDisabled"
+						:show-icon="!isHideIcon"
+						:active-icon="isIcon ? 'heart-fill' : 'checkbox-circle-line'"
+						:inactive-icon="isIcon ? 'heart-line' : 'checkbox-blank-circle-line'"
+						:pt="{
+							className: parseClass([
+								'mr-5',
+								[isCustom, 'bg-surface-100 py-2 px-3 rounded-lg !mr-2 !mb-2'],
+								{
+									'!bg-surface-700': isDark && isCustom
+								}
+							]),
+							icon: {
+								className: parseClass([
+									[isCustom && item.value == checked3, 'text-red-500']
+								])
+							},
+							label: {
+								className: parseClass([
+									[isCustom && item.value == checked3, 'text-red-500']
+								])
+							}
+						}"
+					>
+						{{ item.label }}
+					</mx-radio>
+				</view>
+
+				<mx-list border>
+					<mx-list-item :label="t('换个图标')">
+						<mx-switch v-model="isIcon"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('不显示图标')">
+						<mx-switch v-model="isHideIcon"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('其他样式')">
+						<mx-switch v-model="isCustom"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { parseClass, isDark, t } from "@/.mx";
+import { useUi, type MxRadioOption } from "@/uni_modules/mx-ui";
+
+const ui = useUi();
+
+const isIcon = ref(false);
+const isCustom = ref(false);
+const isDisabled = ref(false);
+const isHideIcon = ref(false);
+const isVerticalCustom = ref(false);
+
+const checked = ref("1");
+const checked2 = ref("2");
+const checked3 = ref("3");
+
+const options = ref<MxRadioOption[]>([
+	{
+		label: "Vue",
+		value: "1"
+	},
+	{
+		label: "React",
+		value: "2"
+	},
+	{
+		label: "Angular",
+		value: "3"
+	},
+	{
+		label: "Svelte",
+		value: "4"
+	}
+]);
+</script>

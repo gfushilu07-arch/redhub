@@ -1,0 +1,92 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-countdown :datetime="datetime"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('隐藏为 00 的值')">
+				<mx-countdown :minute="60" hide-zero></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('指定天数')">
+				<mx-countdown :day="2" format="{d}天{h}:{m}:{s}"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('自定义模板')">
+				<mx-countdown :day="1" format="{d}天{h}时{m}分{s}秒"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('指定小时')">
+				<mx-countdown :hour="2"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('指定分钟')">
+				<mx-countdown :minute="2"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('指定秒')">
+				<mx-countdown :second="10"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('完成后提示')">
+				<mx-countdown :second="5" @done="onDone"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('3秒后开始倒计时')">
+				<mx-countdown ref="countdownRef" :second="5" :auto="false"></mx-countdown>
+			</demo-item>
+
+			<demo-item :label="t('自定义样式')">
+				<mx-countdown
+					:hour="10"
+					:pt="{
+						text: {
+							className: parseClass([
+								'px-2 py-1 rounded-md',
+								[isDark, 'bg-surface-700', 'bg-surface-100']
+							])
+						},
+						splitor: {
+							className: 'px-2'
+						}
+					}"
+				></mx-countdown>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import DemoItem from "../components/item.uvue";
+import { onMounted, onUnmounted, ref } from "vue";
+import { dayUts, isDark, parseClass, t } from "@/.mx";
+import { useUi } from "@/uni_modules/mx-ui";
+
+const ui = useUi();
+
+const datetime = ref(dayUts().add(1, "minute").toDate());
+
+function onDone() {
+	ui.showToast({
+		message: "倒计时完成"
+	});
+}
+
+const countdownRef = ref<MxCountdownComponentPublicInstance | null>(null);
+
+let timer: number = 0;
+
+onMounted(() => {
+	// @ts-ignore
+	timer = setTimeout(() => {
+		if (countdownRef.value != null) {
+			countdownRef.value.next();
+		}
+	}, 3000);
+});
+
+onUnmounted(() => {
+	clearTimeout(timer);
+});
+</script>

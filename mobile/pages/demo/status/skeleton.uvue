@@ -1,0 +1,61 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('文本')">
+				<mx-skeleton :loading="loading">
+					<mx-text>云想衣裳花想容，春风拂槛露华浓。</mx-text>
+				</mx-skeleton>
+			</demo-item>
+
+			<demo-item :label="t('按钮')">
+				<view class="flex flex-row">
+					<mx-skeleton type="button" :loading="loading">
+						<mx-button>立即购买</mx-button>
+					</mx-skeleton>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('图片')">
+				<mx-skeleton type="image" :loading="loading">
+					<mx-image
+						src="https://unix.redhub.example/images/demo/bg1.png"
+					></mx-image>
+				</mx-skeleton>
+			</demo-item>
+
+			<demo-item :label="t('圆形')">
+				<mx-skeleton type="circle" :loading="loading">
+					<mx-image
+						:radius="100"
+						src="https://unix.redhub.example/images/demo/bg1.png"
+					></mx-image>
+				</mx-skeleton>
+			</demo-item>
+
+			<demo-item :label="t('组合')">
+				<view class="flex flex-row">
+					<mx-skeleton type="image" loading> </mx-skeleton>
+
+					<view class="flex-1 ml-2">
+						<mx-skeleton type="text" loading> </mx-skeleton>
+						<mx-skeleton type="text" loading class="mt-2 !w-[80px]"> </mx-skeleton>
+					</view>
+				</view>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import { ref } from "vue";
+
+const loading = ref(true);
+
+onReady(() => {
+	setTimeout(() => {
+		loading.value = false;
+	}, 3000);
+});
+</script>

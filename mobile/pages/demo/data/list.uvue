@@ -1,0 +1,123 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-list-item :label="t('用户名')">
+					<mx-text>神仙都没用</mx-text>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('内容靠左')">
+				<mx-list-item
+					:label="t('QQ')"
+					justify="start"
+					:pt="{
+						label: {
+							className: '!w-10'
+						}
+					}"
+				>
+					<mx-text>615206459</mx-text>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('带箭头')">
+				<mx-list-item label="年龄" arrow>
+					<mx-text>18</mx-text>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('带图标')">
+				<mx-list-item :label="t('余额')" icon="wallet-line">
+					<mx-text>10,9000</mx-text>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('带图片')">
+				<mx-list-item
+					arrow
+					:pt="{
+						image: {
+							width: 48,
+							height: 48
+						},
+						label: {
+							size: 16
+						}
+					}"
+					:label="t('神仙都没用')"
+					image="https://unix.redhub.example/images/demo/avatar.jpg"
+				>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('折叠')">
+				<mx-list-item :label="t('点击展开')" collapse arrow>
+					<template #collapse>
+						<view class="bg-surface-100 dark:bg-surface-700 p-3 rounded-xl">
+							<mx-text
+								>云想衣裳花想容，春风拂槛露华浓。若非群玉山头见，会向瑶台月下逢。</mx-text
+							>
+						</view>
+					</template>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('可滑动')">
+				<mx-list-item :label="t('左滑编辑')" swipeable>
+					<template #swipe-right>
+						<view
+							class="bg-green-500 w-20 h-full flex flex-row items-center justify-center"
+						>
+							<mx-text color="white">{{ t("编辑") }}</mx-text>
+						</view>
+					</template>
+				</mx-list-item>
+
+				<mx-list-item ref="listItemRef" :label="t('右滑删除')" swipeable>
+					<template #swipe-left>
+						<view
+							class="bg-red-500 w-20 h-full flex flex-row items-center justify-center"
+							@tap="onDelete"
+						>
+							<mx-text color="white">{{ t("删除") }}</mx-text>
+						</view>
+					</template>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('禁用')">
+				<mx-list-item :label="t('账号')" disabled>
+					<mx-text>1234567890</mx-text>
+				</mx-list-item>
+			</demo-item>
+
+			<demo-item :label="t('列表')">
+				<mx-list border title="我的列表">
+					<mx-list-item :label="t('我的订单')" hoverable> </mx-list-item>
+					<mx-list-item :label="t('我的收藏')" hoverable> </mx-list-item>
+					<mx-list-item :label="t('我的钱包')" hoverable> </mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import { useUi } from "@/uni_modules/mx-ui";
+import { ref } from "vue";
+
+const ui = useUi();
+
+const listItemRef = ref<MxListItemComponentPublicInstance | null>(null);
+
+function onDelete() {
+	ui.showToast({
+		message: "删除成功"
+	});
+
+	listItemRef.value!.resetSwipe();
+}
+</script>

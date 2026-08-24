@@ -1,0 +1,32 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-avatar src="https://unix.redhub.example/images/demo/avatar.jpg"></mx-avatar>
+			</demo-item>
+
+			<demo-item :label="t('无图片')">
+				<mx-avatar></mx-avatar>
+			</demo-item>
+
+			<demo-item :label="t('圆角')">
+				<mx-avatar
+					rounded
+					src="https://unix.redhub.example/images/demo/avatar.jpg"
+				></mx-avatar>
+			</demo-item>
+
+			<demo-item :label="t('自定义大小')">
+				<mx-avatar
+					:size="60"
+					src="https://unix.redhub.example/images/demo/avatar.jpg"
+				></mx-avatar>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+</script>

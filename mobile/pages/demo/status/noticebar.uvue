@@ -1,0 +1,46 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-noticebar
+					text="云想衣裳花想容，春风拂槛露华浓。若非群玉山头见，会向瑶台月下逢。"
+				></mx-noticebar>
+			</demo-item>
+
+			<demo-item :label="t('带图标')">
+				<view class="flex flex-row items-center">
+					<mx-icon name="notification-4-line" class="mr-2"></mx-icon>
+					<mx-noticebar
+						text="云想衣裳花想容，春风拂槛露华浓。若非群玉山头见，会向瑶台月下逢。"
+					></mx-noticebar>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('设置速度')">
+				<mx-noticebar
+					:speed="40"
+					text="云想衣裳花想容，春风拂槛露华浓。若非群玉山头见，会向瑶台月下逢。"
+				></mx-noticebar>
+			</demo-item>
+
+			<demo-item :label="t('垂直方向')">
+				<mx-noticebar
+					direction="vertical"
+					:text="[
+						'江南可采莲，莲叶何田田',
+						'鱼戏莲叶间',
+						'鱼戏莲叶东',
+						'鱼戏莲叶西',
+						'鱼戏莲叶南',
+						'鱼戏莲叶北'
+					]"
+				></mx-noticebar>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+</script>

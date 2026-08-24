@@ -1,0 +1,185 @@
+<template>
+	<view
+		class="mx-tag"
+		:class="[
+			`mx-tag--${type}`,
+			{
+				'mx-tag--rounded': rounded,
+				'mx-tag--plain': plain,
+				'is-dark': isDark
+			},
+			pt.className
+		]"
+		v-if="!isHide"
+	>
+		<mx-icon
+			:size="12"
+			:name="icon"
+			color="white"
+			:pt="{ className: 'mr-1 ml-[-2px]' }"
+			v-if="icon != ''"
+		></mx-icon>
+
+		<mx-text
+			:size="12"
+			:color="color"
+			:pt="{
+				className: parseClass(['mx-tag__text', pt.text?.className])
+			}"
+		>
+			<slot></slot>
+		</mx-text>
+
+		<mx-icon
+			:size="12"
+			name="close-circle-line"
+			color="white"
+			:pt="{ className: 'ml-1 mr-[-2px]' }"
+			@tap="close"
+			v-if="closable"
+		></mx-icon>
+	</view>
+</template>
+
+<script setup lang="ts">
+import { computed, ref, type PropType } from "vue";
+import type { PassThroughProps, Type } from "../../types";
+import { isDark, parseClass, parsePt } from "@/.mx";
+
+defineOptions({
+	name: "mx-tag"
+});
+
+const props = defineProps({
+	// 透传样式
+	pt: {
+		type: Object,
+		default: () => ({})
+	},
+	// 类型
+	type: {
+		type: String as PropType<Type>,
+		default: "primary"
+	},
+	// 图标
+	icon: {
+		type: String,
+		default: ""
+	},
+	// 圆角
+	rounded: {
+		type: Boolean,
+		default: false
+	},
+	// 可关闭
+	closable: {
+		type: Boolean,
+		default: false
+	},
+	// 镂空
+	plain: {
+		type: Boolean,
+		default: false
+	}
+});
+
+const emits = defineEmits(["close"]);
+
+type PassThrough = {
+	className?: string;
+	text?: PassThroughProps;
+};
+
+const pt = computed(() => parsePt<PassThrough>(props.pt));
+
+// 是否隐藏
+const isHide = ref(false);
+
+// 关闭
+function close() {
+	isHide.value = true;
+	emits("close");
+}
+
+// 颜色
+const color = computed(() => {
+	if (isDark.value && props.type == "info") {
+		return "white";
+	}
+
+	if (props.plain) {
+		return props.type;
+	} else {
+		return "white";
+	}
+});
+</script>
+
+<style lang="scss" scoped>
+.mx-tag {
+	@apply flex flex-row items-center justify-center;
+	@apply px-3 rounded-md;
+	height: 24px;
+	transition-duration: 0.2s;
+	transition-property: background-color, border-color;
+
+	&--rounded {
+		@apply rounded-full;
+	}
+
+	&--primary {
+		@apply bg-primary-500;
+	}
+
+	&--success {
+		@apply bg-green-500;
+	}
+
+	&--warn {
+		@apply bg-yellow-500;
+	}
+
+	&--error {
+		@apply bg-red-500;
+	}
+
+	&--info {
+		@apply bg-surface-500;
+	}
+
+	&--plain {
+		@apply bg-transparent;
+		@apply border border-solid border-primary-500;
+
+		&.mx-tag--primary {
+			@apply border-primary-500;
+		}
+
+		&.mx-tag--success {
+			@apply border-green-500;
+		}
+
+		&.mx-tag--warn {
+			@apply border-yellow-500;
+		}
+
+		&.mx-tag--error {
+			@apply border-red-500;
+		}
+
+		&.mx-tag--info {
+			@apply border-surface-500;
+
+			&.is-dark {
+				@apply border-surface-300;
+			}
+		}
+	}
+}
+
+.mx-tag {
+	& + .mx-tag {
+		@apply ml-2;
+	}
+}
+</style>

@@ -1,0 +1,93 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-button @tap="open()">{{ t("打开") }}</mx-button>
+			</demo-item>
+
+			<demo-item :label="t('不同位置')">
+				<view class="flex flex-row overflow-visible">
+					<mx-button type="light" @tap="open('top')">{{ t("顶部") }}</mx-button>
+					<mx-button type="light" @tap="open('center')">{{ t("中间") }}</mx-button>
+					<mx-button type="light" @tap="open('bottom')">{{ t("底部") }}</mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('不同类型')">
+				<view class="flex flex-row flex-wrap mb-2 overflow-visible">
+					<mx-button type="light" @tap="openType('success')">{{ t("成功") }}</mx-button>
+					<mx-button type="light" @tap="openType('error')">{{ t("失败") }}</mx-button>
+					<mx-button type="light" @tap="openType('warn')">{{ t("警告") }}</mx-button>
+					<mx-button type="light" @tap="openType('question')">{{ t("问题") }}</mx-button>
+					<mx-button type="light" @tap="openType('disabled')">{{ t("禁用") }}</mx-button>
+				</view>
+
+				<view class="flex flex-row flex-wrap overflow-visible">
+					<mx-button type="light" @tap="openType('stop')">{{ t("停止") }}</mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('自定义图标')">
+				<view class="flex flex-row overflow-visible">
+					<mx-button
+						type="light"
+						icon="star-line"
+						@tap="openIcon('star-line')"
+					></mx-button>
+
+					<mx-button
+						type="light"
+						icon="mail-line"
+						@tap="openIcon('mail-line')"
+					></mx-button>
+
+					<mx-button
+						type="light"
+						icon="file-line"
+						@tap="openIcon('file-line')"
+					></mx-button>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('只存在一个')">
+				<mx-button @tap="openClear()">{{ t("打开") }}</mx-button>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { useUi, type MxToastType } from "@/uni_modules/mx-ui";
+import DemoItem from "../components/item.uvue";
+import { t } from "@/.mx";
+
+const ui = useUi();
+
+function open(position: "top" | "center" | "bottom" = "center") {
+	ui.showToast({
+		message: t("不同位置提示"),
+		position: position
+	});
+}
+
+function openType(type: MxToastType) {
+	ui.showToast({
+		message: t("不同类型提示"),
+		type
+	});
+}
+
+function openIcon(icon: string) {
+	ui.showToast({
+		message: t("带图标提示"),
+		icon
+	});
+}
+
+function openClear() {
+	ui.showToast({
+		message: t("移除其他已存在的提示"),
+		clear: true
+	});
+}
+</script>

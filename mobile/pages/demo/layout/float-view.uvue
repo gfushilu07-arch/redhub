@@ -1,0 +1,50 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item>
+				<view class="flex flex-row items-center">
+					<mx-icon name="notification-4-fill" class="mr-2"></mx-icon>
+					<mx-text>{{ t("禁用状态，无法拖拽") }}</mx-text>
+				</view>
+			</demo-item>
+
+			<demo-item>
+				<view class="flex flex-row items-center">
+					<mx-icon name="heart-fill" class="mr-2"></mx-icon>
+					<mx-text>{{ t("不吸附边缘，任意位置可拖拽") }}</mx-text>
+				</view>
+			</demo-item>
+
+			<mx-float-view :left="200" :bottom="50" :no-snapping="true">
+				<view
+					class="w-[40px] h-[40px] bg-primary-500 flex flex-row items-center justify-center"
+					@tap="toAlert"
+				>
+					<mx-icon name="heart-fill" color="white"></mx-icon>
+				</view>
+			</mx-float-view>
+
+			<mx-float-view disabled :left="20" :bottom="400" :gap="10">
+				<view
+					class="w-[40px] h-[40px] bg-surface-400 rounded-full flex flex-row items-center justify-center"
+				>
+					<mx-icon name="notification-4-fill" color="white"></mx-icon>
+				</view>
+			</mx-float-view>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import { useUi } from "@/uni_modules/mx-ui";
+import DemoItem from "../components/item.uvue";
+
+const ui = useUi();
+
+function toAlert() {
+	ui.showToast({
+		message: t("这是一个提示")
+	});
+}
+</script>

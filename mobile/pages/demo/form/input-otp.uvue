@@ -1,0 +1,72 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-input-otp @done="toDone"></mx-input-otp>
+			</demo-item>
+
+			<demo-item :label="t('自动聚焦')">
+				<mx-input-otp autofocus @done="toDone"></mx-input-otp>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<mx-input-otp
+					:length="isLength ? 6 : 4"
+					:disabled="isDisabled"
+					:pt="{
+						item: {
+							className: parseClass({
+								'!bg-sky-100': isCustom,
+								'!border-white': isCustom
+							})
+						},
+						value: {
+							className: parseClass({
+								'!text-sky-700': isCustom
+							})
+						},
+						cursor: {
+							className: parseClass({
+								'!bg-sky-700': isCustom
+							})
+						}
+					}"
+					@done="toDone"
+				></mx-input-otp>
+
+				<mx-list border :pt="{ className: 'mt-5' }">
+					<mx-list-item :label="t('长度为6')">
+						<mx-switch v-model="isLength"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('其他样式')">
+						<mx-switch v-model="isCustom"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { useUi } from "@/uni_modules/mx-ui";
+import { parseClass, t } from "@/.mx";
+
+const ui = useUi();
+
+const isLength = ref(true);
+const isDisabled = ref(false);
+const isCustom = ref(false);
+
+function toDone() {
+	ui.showToast({
+		message: "Done"
+	});
+}
+</script>

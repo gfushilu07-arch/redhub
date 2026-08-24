@@ -1,0 +1,83 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<mx-list :pt="{ className: 'mb-3' }">
+				<mx-list-item
+					:label="t('通用设置')"
+					icon="settings-line"
+					arrow
+					hoverable
+					@tap="router.to('/pages/set/general')"
+				>
+				</mx-list-item>
+				<mx-list-item
+					:label="t('通知设置')"
+					icon="notification-4-line"
+					arrow
+					hoverable
+					@tap="router.to('/pages/set/notice')"
+				>
+				</mx-list-item>
+				<mx-list-item :label="t('隐私设置')" icon="lock-line" arrow hoverable>
+				</mx-list-item>
+			</mx-list>
+
+			<mx-list :pt="{ className: 'mb-3' }">
+				<mx-list-item
+					:label="$t('关于{name}', { name: config.name })"
+					icon="error-warning-line"
+					arrow
+					hoverable
+					:pt="{
+						label: {
+							className: 'flex-1'
+						}
+					}"
+					@tap="router.to('/pages/set/about')"
+				>
+				</mx-list-item>
+
+				<mx-list-item
+					:label="t('联系我们')"
+					icon="customer-service-line"
+					arrow
+					hoverable
+					@tap="refs.open('cs')"
+				>
+				</mx-list-item>
+			</mx-list>
+
+			<mx-list :pt="{ className: 'mb-3' }">
+				<mx-list-item hoverable justify="center" @tap="toLogout">
+					<mx-text color="error">{{ t("退出登录") }}</mx-text>
+				</mx-list-item>
+			</mx-list>
+		</view>
+
+		<!-- 联系我们 -->
+		<contact-us :ref="refs.set('cs')"></contact-us>
+	</mx-page>
+</template>
+
+<script setup lang="ts">
+import { config } from "@/config";
+import { router, useRefs, useStore, t, $t } from "@/.mx";
+import { useUi } from "@/uni_modules/mx-ui";
+import ContactUs from "./components/contact-us.uvue";
+
+const refs = useRefs();
+const ui = useUi();
+const { user } = useStore();
+
+function toLogout() {
+	ui.showConfirm({
+		title: t("提示"),
+		message: t("确定退出登录吗？"),
+		callback(action) {
+			if (action == "confirm") {
+				user.logout();
+			}
+		}
+	});
+}
+</script>

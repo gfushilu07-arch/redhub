@@ -1,0 +1,170 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-tabs v-model="form.val1" :list="list"></mx-tabs>
+			</demo-item>
+
+			<demo-item :label="t('显示滑块')">
+				<mx-tabs
+					v-model="form.val2"
+					:list="list"
+					show-slider
+					:pt="{ className: isPad ? '!p-2' : '' }"
+				></mx-tabs>
+
+				<mx-list border :pt="{ className: 'mt-3' }">
+					<mx-list-item :label="t('添加间距')">
+						<mx-switch v-model="isPad"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+
+			<demo-item :label="t('横向填充')">
+				<demo-tips>{{ t("适用于标签数量不多的情况") }}</demo-tips>
+
+				<mx-tabs v-model="form.val3" :list="list2" fill></mx-tabs>
+			</demo-item>
+
+			<demo-item :label="t('居中')">
+				<view class="flex flex-row justify-center">
+					<mx-tabs v-model="form.val4" :list="list2"></mx-tabs>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('单个禁用')">
+				<mx-tabs v-model="form.val5" :list="list3"></mx-tabs>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<mx-tabs
+					v-model="form.val6"
+					:list="list"
+					:show-line="isShowLine"
+					:disabled="isDisabled"
+					:color="isColor ? 'red' : ''"
+					:un-color="isColor ? '#ccc' : ''"
+				></mx-tabs>
+
+				<mx-list border :pt="{ className: 'mt-3' }">
+					<mx-list-item :label="t('显示下划线')">
+						<mx-switch v-model="isShowLine"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('自定义颜色')">
+						<mx-switch v-model="isColor"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import DemoTips from "../components/tips.uvue";
+import { reactive, ref } from "vue";
+import type { MxTabsItem } from "@/uni_modules/mx-ui";
+
+type Form = {
+	val1: string;
+	val2: string;
+	val3: string;
+	val4: string;
+	val5: string;
+	val6: string;
+};
+
+const form = reactive<Form>({
+	val1: "1",
+	val2: "2",
+	val3: "1",
+	val4: "1",
+	val5: "2",
+	val6: "1"
+});
+
+const list = ref<MxTabsItem[]>([
+	{
+		label: "Vue",
+		value: "1"
+	},
+	{
+		label: "React",
+		value: "2"
+	},
+	{
+		label: "Angular",
+		value: "3"
+	},
+	{
+		label: "Svelte",
+		value: "4"
+	},
+	{
+		label: "Jquery",
+		value: "5"
+	},
+	{
+		label: "Vuex",
+		value: "6"
+	},
+	{
+		label: "Vue Router",
+		value: "7"
+	},
+	{
+		label: "Pinia",
+		value: "8"
+	}
+]);
+
+const list2 = ref<MxTabsItem[]>([
+	{
+		label: "Vue",
+		value: "1"
+	},
+	{
+		label: "React",
+		value: "2"
+	},
+	{
+		label: "Angular",
+		value: "3"
+	},
+	{
+		label: "Svelte",
+		value: "4"
+	}
+]);
+
+const list3 = ref<MxTabsItem[]>([
+	{
+		label: "Vue",
+		value: "1"
+	},
+	{
+		label: "React",
+		value: "2"
+	},
+	{
+		label: "Angular",
+		value: "3",
+		disabled: true
+	},
+	{
+		label: "Svelte",
+		value: "4"
+	}
+]);
+
+const isShowLine = ref(true);
+const isDisabled = ref(false);
+const isColor = ref(false);
+const isPad = ref(false);
+</script>

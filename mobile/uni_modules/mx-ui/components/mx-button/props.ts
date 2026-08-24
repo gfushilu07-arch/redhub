@@ -1,0 +1,44 @@
+import type { MxIconProps } from "../mx-icon/props";
+import type { MxButtonType, Size } from "../../types";
+import type { MxLoadingProps } from "../mx-loading/props";
+import type { MxTextProps } from "../mx-text/props";
+
+export type MxButtonPassThrough = {
+	className?: string;
+	label?: MxTextProps;
+	icon?: MxIconProps;
+	loading?: MxLoadingProps;
+};
+
+export type MxButtonProps = {
+	className?: string;
+	pt?: MxButtonPassThrough;
+	type?: MxButtonType;
+	color?: string;
+	icon?: string;
+	text?: boolean;
+	rounded?: boolean;
+	border?: boolean;
+	loading?: boolean;
+	disabled?: boolean;
+	size?: Size;
+	hoverClass?: string;
+	hoverStopPropagation?: boolean;
+	hoverStartTime?: number;
+	hoverStayTime?: number;
+	formType?: "submit" | "reset";
+	openType?: "agreePrivacyAuthorization" | "feedback" | "share" | "getUserInfo" | "contact" | "getPhoneNumber" | "launchApp" | "openSetting" | "chooseAvatar" | "getAuthorize" | "lifestyle" | "contactShare" | "openGroupProfile" | "openGuildProfile" | "openPublicProfile" | "shareMessageToFriend" | "addFriend" | "addColorSign" | "addGroupApp" | "addToFavorites" | "chooseAddress" | "chooseInvoiceTitle" | "login" | "subscribe" | "favorite" | "watchLater" | "openProfile" | "liveActivity" | "getRealtimePhoneNumber";
+	lang?: "en" | "zh_CN" | "zh_TW";
+	sessionFrom?: string;
+	sendMessageTitle?: string;
+	sendMessagePath?: string;
+	sendMessageImg?: string;
+	showMessageCard?: boolean;
+	appParameter?: string;
+	groupId?: string;
+	guildId?: string;
+	publicId?: string;
+	phoneNumberNoQuotaToast?: boolean;
+	createliveactivity?: boolean;
+	fluid?: boolean;
+};

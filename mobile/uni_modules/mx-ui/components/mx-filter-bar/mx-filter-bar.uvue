@@ -1,0 +1,17 @@
+<template>
+	<view class="mx-filter-bar">
+		<slot></slot>
+	</view>
+</template>
+
+<script lang="ts" setup>
+defineOptions({
+	name: "mx-filter-bar"
+});
+</script>
+
+<style lang="scss" scoped>
+.mx-filter-bar {
+	@apply flex flex-row;
+}
+</style>

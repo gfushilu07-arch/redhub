@@ -1,0 +1,92 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-switch v-model="checked"></mx-switch>
+			</demo-item>
+
+			<demo-item :label="t('自定义颜色')">
+				<view class="flex flex-row">
+					<mx-switch
+						v-model="checked"
+						:pt="{
+							className: 'mr-5',
+							track: {
+								className: '!bg-red-100'
+							},
+							thumb: {
+								className: '!bg-red-500'
+							}
+						}"
+					></mx-switch>
+
+					<mx-switch
+						v-model="checked"
+						:pt="{
+							track: {
+								className: '!bg-purple-100'
+							},
+							thumb: {
+								className: '!bg-purple-500'
+							}
+						}"
+					></mx-switch>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<mx-switch
+					v-model="checked"
+					:loading="isLoading"
+					:disabled="isDisabled"
+					:height="isSize ? 30 : 24"
+					:width="isSize ? 50 : 40"
+					:pt="{
+						track: {
+							className: parseClass([[isCustom, '!rounded-md']])
+						},
+						thumb: {
+							className: parseClass([[isCustom, '!rounded-md']])
+						}
+					}"
+				></mx-switch>
+
+				<mx-list
+					border
+					:pt="{
+						className: 'mt-3'
+					}"
+				>
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('加载中')">
+						<mx-switch v-model="isLoading"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('大一点')">
+						<mx-switch v-model="isSize"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('正方形')">
+						<mx-switch v-model="isCustom"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { parseClass } from "@/.mx";
+import { t } from "@/.mx";
+
+const checked = ref(false);
+const isDisabled = ref(false);
+const isLoading = ref(false);
+const isSize = ref(false);
+const isCustom = ref(false);
+</script>

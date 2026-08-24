@@ -1,0 +1,55 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('自定义')">
+				<mx-button @tap="chooseImage">{{ t("选择图片") }}</mx-button>
+
+				<mx-list border :pt="{ className: 'mt-5' }">
+					<mx-list-item :label="t('可调节裁剪框大小')">
+						<mx-switch v-model="resizable"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+
+	<mx-cropper
+		ref="cropperRef"
+		:resizable="resizable"
+		@crop="onCrop"
+		@load="onImageLoad"
+	></mx-cropper>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import { ref } from "vue";
+
+const cropperRef = ref<MxCropperComponentPublicInstance | null>(null);
+
+const resizable = ref(true);
+
+function chooseImage() {
+	uni.chooseImage({
+		count: 1,
+		sizeType: ["original", "compressed"],
+		sourceType: ["album", "camera"],
+		success: (res) => {
+			if (res.tempFilePaths.length > 0) {
+				cropperRef.value!.open(res.tempFilePaths[0]);
+			}
+		}
+	});
+}
+
+function onCrop(url: string) {
+	uni.previewImage({
+		urls: [url]
+	});
+}
+
+function onImageLoad(e: UniImageLoadEvent) {
+	console.log("onImageLoad", e);
+}
+</script>

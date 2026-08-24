@@ -1,0 +1,44 @@
+<template>
+	<mx-page back-top>
+		<mx-sticky>
+			<view class="bg-primary-500 p-3 h-[40px] flex flex-row items-center">
+				<mx-text color="white">Header - 1</mx-text>
+			</view>
+		</mx-sticky>
+
+		<view class="p-3">
+			<mx-list>
+				<mx-list-item :label="`${i}`" v-for="i in 50" :key="i"> </mx-list-item>
+			</mx-list>
+		</view>
+
+		<mx-sticky :offset-top="40">
+			<view class="bg-red-500 p-3 h-[40px] flex flex-row items-center">
+				<mx-text color="white">Header - 2</mx-text>
+			</view>
+		</mx-sticky>
+
+		<view class="p-3">
+			<mx-list>
+				<mx-list-item :label="`${i}`" v-for="i in 50" :key="i"> </mx-list-item>
+			</mx-list>
+		</view>
+
+		<mx-sticky :offset-top="80">
+			<view class="bg-purple-500 p-3 h-[40px] flex flex-row items-center">
+				<mx-text color="white">Header - 3</mx-text>
+			</view>
+		</mx-sticky>
+
+		<view class="p-3">
+			<mx-list>
+				<mx-list-item :label="`${i}`" v-for="i in 50" :key="i"> </mx-list-item>
+			</mx-list>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+</script>

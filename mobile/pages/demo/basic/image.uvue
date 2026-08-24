@@ -1,0 +1,120 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-image :src="url"></mx-image>
+			</demo-item>
+
+			<demo-item :label="t('不同裁剪')">
+				<view class="flex flex-row justify-between">
+					<view class="flex flex-col items-center justify-center">
+						<mx-image :src="url" mode="aspectFill"></mx-image>
+						<mx-text
+							:size="12"
+							:pt="{
+								className: 'mt-1'
+							}"
+							>aspectFill</mx-text
+						>
+					</view>
+
+					<view class="flex flex-col items-center justify-center">
+						<mx-image :src="url" mode="aspectFit"></mx-image>
+						<mx-text
+							:size="12"
+							:pt="{
+								className: 'mt-1'
+							}"
+							>aspectFit</mx-text
+						>
+					</view>
+
+					<view class="flex flex-col items-center justify-center">
+						<mx-image :src="url" mode="heightFix"></mx-image>
+						<mx-text
+							:size="12"
+							:pt="{
+								className: 'mt-1'
+							}"
+							>heightFix</mx-text
+						>
+					</view>
+
+					<view class="flex flex-col items-center justify-center">
+						<mx-image :src="url" mode="scaleToFill"></mx-image>
+						<mx-text
+							:size="12"
+							:pt="{
+								className: 'mt-1'
+							}"
+							>scaleToFill</mx-text
+						>
+					</view>
+				</view>
+			</demo-item>
+
+			<demo-item :label="t('点击可预览')">
+				<mx-image :src="url" preview></mx-image>
+			</demo-item>
+
+			<demo-item :label="t('失败时显示')">
+				<mx-image src="url"></mx-image>
+			</demo-item>
+
+			<demo-item :label="t('加载中')">
+				<mx-image src=""></mx-image>
+			</demo-item>
+
+			<demo-item :label="t('自定义圆角')">
+				<view class="flex flex-row">
+					<mx-image
+						:src="url"
+						:pt="{
+							inner: {
+								className: '!rounded-none'
+							}
+						}"
+					></mx-image>
+
+					<mx-image
+						:src="url"
+						:pt="{
+							className: 'ml-3',
+							inner: {
+								className: '!rounded-2xl'
+							}
+						}"
+					></mx-image>
+
+					<mx-image
+						:src="url"
+						:pt="{
+							className: 'ml-3',
+							inner: {
+								className: '!rounded-3xl'
+							}
+						}"
+					></mx-image>
+
+					<mx-image
+						:src="url"
+						:pt="{
+							className: 'ml-3',
+							inner: {
+								className: '!rounded-full'
+							}
+						}"
+					></mx-image>
+				</view>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { t } from "@/.mx";
+
+const url = ref("https://unix.redhub.example/images/demo/avatar.jpg");
+</script>

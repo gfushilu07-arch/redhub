@@ -1,0 +1,54 @@
+<template>
+	<mx-page>
+		<mx-sign ref="signRef" :height="height" :width="width" :enable-brush="isBrush"></mx-sign>
+
+		<view class="p-3">
+			<mx-list>
+				<mx-list-item :label="t('操作')">
+					<mx-button type="info" @click="clear">{{ t("清空") }}</mx-button>
+					<mx-button @click="preview">{{ t("预览") }}</mx-button>
+				</mx-list-item>
+
+				<mx-list-item :label="t('设置高度')">
+					<mx-switch v-model="isFullscreen" @change="onFullscreenChange"></mx-switch>
+				</mx-list-item>
+
+				<mx-list-item :label="t('毛笔效果')">
+					<mx-switch v-model="isBrush"></mx-switch>
+				</mx-list-item>
+			</mx-list>
+		</view>
+	</mx-page>
+</template>
+
+<script setup lang="ts">
+import { t } from "@/.mx";
+import { ref } from "vue";
+
+const height = ref(200);
+const width = ref(0);
+
+const isFullscreen = ref(false);
+const isBrush = ref(true);
+const signRef = ref<MxSignComponentPublicInstance | null>(null);
+
+function clear() {
+	signRef.value!.clear();
+}
+
+function preview() {
+	signRef.value!.toPng().then((url) => {
+		uni.previewImage({
+			urls: [url]
+		});
+	});
+}
+
+function onFullscreenChange() {
+	height.value = isFullscreen.value ? uni.getWindowInfo().windowHeight - 200 : 200;
+}
+
+onReady(() => {
+	width.value = uni.getWindowInfo().windowWidth;
+});
+</script>

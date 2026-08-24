@@ -1,0 +1,33 @@
+<template>
+	<view class="mx-timeline" :class="[pt.className]">
+		<slot></slot>
+	</view>
+</template>
+
+<script setup lang="ts">
+import { computed } from "vue";
+import { parsePt } from "@/.mx";
+
+defineOptions({
+	name: "mx-timeline"
+});
+
+const props = defineProps({
+	pt: {
+		type: Object,
+		default: () => ({})
+	}
+});
+
+type PassThrough = {
+	className?: string;
+};
+
+const pt = computed(() => parsePt<PassThrough>(props.pt));
+</script>
+
+<style lang="scss" scoped>
+.mx-timeline {
+	@apply flex flex-col py-2;
+}
+</style>

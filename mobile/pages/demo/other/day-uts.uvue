@@ -1,0 +1,50 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('格式化')">
+				<mx-text>format("YYYY-MM-DD HH:mm:ss")</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('添加')">
+				<mx-text>add(1, "day")</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('减去')">
+				<mx-text>subtract(1, "day")</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('获取某个单位的开始时间')">
+				<mx-text>startOf("day")</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('获取某个单位的结束时间')">
+				<mx-text>endOf("month")</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('是否同一天')">
+				<mx-text>isSame(Date)</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('是否早于')">
+				<mx-text>isBefore(Date)</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('是否晚于')">
+				<mx-text>isAfter(Date)</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('差值')">
+				<mx-text>diff(Date)</mx-text>
+			</demo-item>
+
+			<demo-item :label="t('差值（单位）')">
+				<mx-text>diffUnit(Date, "day")</mx-text>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+</script>

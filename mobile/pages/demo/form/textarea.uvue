@@ -1,0 +1,67 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-textarea></mx-textarea>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<mx-textarea
+					v-model="content"
+					:border="isBorder"
+					:disabled="isDisabled"
+					:show-word-limit="isShowCount"
+					:auto-height="isAutoHeight"
+					:pt="{
+						className: parseClass({
+							'!bg-sky-100': isColor,
+							'!border-sky-700': isColor
+						}),
+						inner: {
+							className: parseClass({
+								'text-sky-700': isColor
+							})
+						}
+					}"
+				></mx-textarea>
+
+				<mx-list border :pt="{ className: 'mt-5' }">
+					<mx-list-item :label="t('边框')">
+						<mx-switch v-model="isBorder"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('显示字数')">
+						<mx-switch v-model="isShowCount"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('自动增高')">
+						<mx-switch v-model="isAutoHeight"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('其他颜色')">
+						<mx-switch v-model="isColor"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { parseClass } from "@/.mx";
+import { t } from "@/.mx";
+
+const content = ref("RedHub Mx");
+
+const isBorder = ref(true);
+const isShowCount = ref(true);
+const isDisabled = ref(false);
+const isColor = ref(false);
+const isAutoHeight = ref(false);
+</script>

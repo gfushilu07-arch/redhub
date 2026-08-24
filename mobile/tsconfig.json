@@ -1,0 +1,39 @@
+{
+	"extends": "@vue/tsconfig/tsconfig.json",
+	"compilerOptions": {
+		"ignoreDeprecations": "5.0",
+		"verbatimModuleSyntax": true,
+		"experimentalDecorators": true,
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"noImplicitAny": false,
+		"types": [
+			"@dcloudio/types",
+			"vue",
+			"vite/client",
+			"./.mx/types/uni-app.d.ts",
+			"./uni_modules/mx-ui/index.d.ts",
+			"./uni_modules/mx-svg/index.d.ts"
+		],
+		"lib": ["esnext", "dom"],
+		"outDir": "esbuild",
+		"paths": {
+			"@/*": ["./*"]
+		}
+	},
+	"vueCompilerOptions": {
+		"extensions": [".vue", ".uvue"]
+	},
+	"include": [
+		"**/*.uts",
+		"**/*.ts",
+		"main.ts",
+		"**/*.uvue",
+		"**/*.vue",
+		"App.uvue",
+		"**/*.d.ts",
+		"./.mx/*.ts"
+	],
+	"exclude": ["node_modules", "dist"]
+}

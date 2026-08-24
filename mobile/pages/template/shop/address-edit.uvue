@@ -1,0 +1,198 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<view class="p-4 bg-white rounded-2xl dark:!bg-surface-800 mb-3">
+				<mx-form ref="formRef" v-model="formData" :rules="rules" :disabled="saving">
+					<mx-form-item :label="t('收货人')" prop="contact" required>
+						<mx-input
+							v-model="formData.contact"
+							:placeholder="t('请输入收货人姓名')"
+						></mx-input>
+					</mx-form-item>
+
+					<mx-form-item :label="t('手机号')" prop="phone" required>
+						<mx-input
+							v-model="formData.phone"
+							:placeholder="t('请输入手机号')"
+							:maxlength="11"
+							type="number"
+						></mx-input>
+					</mx-form-item>
+
+					<mx-form-item :label="t('地区')" prop="province" required>
+						<mx-cascader
+							v-model="regions"
+							:placeholder="t('选择省市区')"
+							:options="pcaOptions"
+							@change="onRegionsChange"
+						></mx-cascader>
+					</mx-form-item>
+
+					<mx-form-item :label="t('详细地址')" prop="address" required>
+						<mx-textarea
+							v-model="formData.address"
+							:placeholder="t('小区楼栋、门牌号、村等')"
+						></mx-textarea>
+					</mx-form-item>
+				</mx-form>
+			</view>
+
+			<mx-list>
+				<mx-list-item :label="t('默认地址')">
+					<mx-switch v-model="formData.isDefault"></mx-switch>
+				</mx-list-item>
+			</mx-list>
+		</view>
+
+		<mx-footer>
+			<mx-button size="large" @tap="save()">{{ t("保存") }}</mx-button>
+		</mx-footer>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { router, isEmpty, type Response, request, parse, t } from "@/.mx";
+import { useCascader, useForm, useUi, type MxFormRule } from "@/uni_modules/mx-ui";
+import { type Ref, ref } from "vue";
+import pca from "@/.mx/data/pca.json";
+import type { UserAddress } from "../types";
+
+const props = defineProps({
+	id: {
+		type: String,
+		default: ""
+	}
+});
+
+const ui = useUi();
+
+const { formRef, validate } = useForm();
+
+// 省市区级联选项数据
+const pcaOptions = useCascader(pca);
+
+// 地区选择的值，格式为 [省, 市, 区]
+const regions = ref<string[]>([]);
+
+// 表单数据，包含收货人、手机号、地区、详细地址、是否默认等字段
+const formData = ref<UserAddress>({
+	contact: "",
+	phone: "",
+	province: "",
+	city: "",
+	district: "",
+	address: "",
+	isDefault: false
+}) as Ref<UserAddress>;
+
+// 表单验证规则，校验收货人、手机号、详细地址、地区等必填项
+const rules = new Map<string, MxFormRule[]>([
+	["contact", [{ required: true, message: t("收货人不能为空") }]],
+	[
+		"phone",
+		[
+			{ required: true, message: t("手机号不能为空") },
+			{ pattern: /^1[3-9]\d{9}$/, message: t("手机号格式不正确") }
+		]
+	],
+	["address", [{ required: true, message: t("详细地址不能为空") }]],
+	["province", [{ required: true, message: t("所在地区不能为空") }]]
+]);
+
+// 保存按钮loading状态
+const saving = ref(false);
+
+/**
+ * 保存地址信息
+ * 1. 校验表单
+ * 2. 组装数据
+ * 3. 请求后端接口，新增或更新地址
+ */
+function save() {
+	validate((valid, errors) => {
+		if (valid) {
+			ui.showLoading(t("保存中"));
+
+			// 解构地区信息
+			const [province, city, district] = regions.value;
+
+			saving.value = true;
+
+			// 合并表单数据和地区信息
+			const data = {
+				...formData.value,
+				province,
+				city,
+				district
+			};
+
+			// 根据是否有id判断是新增还是编辑
+			request({
+				url: `/app/user/address/${props.id != "" ? "update" : "add"}`,
+				method: "POST",
+				data
+			})
+				.then(() => {
+					// 保存成功返回上一页
+					router.back();
+				})
+				.catch((err) => {
+					// 保存失败提示错误信息
+					ui.showToast({ message: (err as Response).message! });
+				})
+				.finally(() => {
+					ui.hideLoading();
+					saving.value = false;
+				});
+		} else {
+			// 校验失败提示第一个错误
+			ui.showToast({ message: errors[0].message });
+		}
+	});
+}
+
+/**
+ * 获取地址详情（编辑时调用）
+ * 1. 请求后端接口获取地址详情
+ * 2. 回填表单和地区选择
+ */
+function getInfo() {
+	request({
+		url: "/app/user/address/info",
+		data: { id: props.id }
+	})
+		.then((res) => {
+			if (res != null) {
+				// 解析并赋值表单数据
+				formData.value = parse<UserAddress>(res)!;
+				// 回填地区选择
+				regions.value = [
+					formData.value.province,
+					formData.value.city,
+					formData.value.district
+				];
+			}
+		})
+		.catch((err) => {
+			ui.showToast({ message: (err as Response).message! });
+		});
+}
+
+/**
+ * 地区选择变化时触发
+ * @param value 选中的地区数组 [省, 市, 区]
+ */
+function onRegionsChange(value: string[]) {
+	const [province, city, district] = isEmpty(value) ? ["", "", ""] : value;
+
+	formData.value.province = province;
+	formData.value.city = city;
+	formData.value.district = district;
+}
+
+onReady(() => {
+	if (props.id != "") {
+		getInfo();
+	}
+});
+</script>

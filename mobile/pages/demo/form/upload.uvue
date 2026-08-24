@@ -1,0 +1,58 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-upload v-model="form.upload1" test></mx-upload>
+			</demo-item>
+
+			<demo-item :label="t('禁用')">
+				<mx-upload v-model="form.upload1" disabled test></mx-upload>
+			</demo-item>
+
+			<demo-item :label="t('自定义图标、文字、大小')">
+				<mx-upload
+					v-model="form.upload1"
+					icon="id-card-line"
+					:text="t('请上传您的证件照')"
+					:width="300"
+					:height="200"
+					test
+					:pt="{
+						icon: {
+							size: 40
+						},
+						text: {
+							size: 12
+						}
+					}"
+				></mx-upload>
+			</demo-item>
+
+			<demo-item :label="t('多选')">
+				<mx-upload multiple v-model="form.upload2" test></mx-upload>
+			</demo-item>
+
+			<demo-item :label="t('限制 3 个')">
+				<mx-upload multiple :limit="3" v-model="form.upload3" test></mx-upload>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import { reactive } from "vue";
+
+type Form = {
+	upload1: string;
+	upload2: string[];
+	upload3: string[];
+};
+
+const form = reactive<Form>({
+	upload1: "",
+	upload2: [],
+	upload3: []
+});
+</script>

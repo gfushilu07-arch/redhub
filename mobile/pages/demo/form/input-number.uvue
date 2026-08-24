@@ -1,0 +1,92 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-input-number></mx-input-number>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<view class="mb-5 flex flex-row justify-center">
+					<mx-input-number
+						v-model="num"
+						:step="isStep ? 10 : 1"
+						:min="isMin ? 10 : 0"
+						:max="isMax ? 50 : 100"
+						:input-type="isDigit ? 'digit' : 'number'"
+						:inputable="isInput"
+						:disabled="isDisabled"
+						:size="isSize ? 30 : 24"
+						:pt="{
+							op: {
+								className: parseClass({
+									'!rounded-full': isCustom
+								})
+							},
+							value: {
+								className: parseClass({
+									'!rounded-full': isCustom
+								})
+							}
+						}"
+						@change="onChange"
+					></mx-input-number>
+				</view>
+
+				<mx-list border>
+					<mx-list-item :label="t('步进为10')">
+						<mx-switch v-model="isStep"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('最小为10')">
+						<mx-switch v-model="isMin"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('最大为50')">
+						<mx-switch v-model="isMax"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('可以小数')">
+						<mx-switch v-model="isDigit"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('可以输入')">
+						<mx-switch v-model="isInput"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('大一点')">
+						<mx-switch v-model="isSize"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('自定义样式')">
+						<mx-switch v-model="isCustom"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { parseClass, t } from "@/.mx";
+
+const num = ref(0);
+
+const isStep = ref(false);
+const isMin = ref(false);
+const isMax = ref(false);
+const isDigit = ref(false);
+const isInput = ref(true);
+const isDisabled = ref(false);
+const isSize = ref(false);
+const isCustom = ref(false);
+
+function onChange(value: number) {
+	console.log(value);
+}
+</script>

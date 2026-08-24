@@ -1,0 +1,97 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-topbar :title="t('标题')"> </mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('插槽')">
+				<mx-topbar :title="t('标题')">
+					<template #prepend>
+						<mx-icon
+							name="heart-fill"
+							:size="18"
+							:pt="{
+								className: 'ml-2'
+							}"
+						></mx-icon>
+					</template>
+
+					<template #append>
+						<mx-icon name="search-line" :size="19"></mx-icon>
+					</template>
+				</mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('自定义颜色')">
+				<mx-topbar :title="t('标题')" color="white" background-color="#409EFF"> </mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('使用 PT 自定义颜色')">
+				<mx-topbar
+					:title="t('标题')"
+					:pt="{
+						className: 'bg-surface-800',
+						title: {
+							className: 'text-white'
+						},
+						back: {
+							className: 'text-white'
+						}
+					}"
+				>
+				</mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('自定义返回图标')">
+				<mx-topbar
+					:title="t('标题')"
+					back-icon="home-2-line"
+					:pt="{
+						back: {
+							size: 20
+						}
+					}"
+				>
+				</mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('禁用返回按钮')">
+				<mx-topbar :title="t('标题')" :backable="false"> </mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('自定义返回路径')">
+				<mx-topbar :title="t('标题')" back-path="/pages/user/login">
+					<template #prepend>
+						<mx-text>{{ t("登录") }}</mx-text>
+					</template>
+				</mx-topbar>
+			</demo-item>
+
+			<demo-item :label="t('自定义标题内容')">
+				<mx-topbar>
+					<mx-tabs v-model="type" :height="32" :list="typeList"></mx-tabs>
+				</mx-topbar>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import { ref } from "vue";
+import type { MxTabsItem } from "@/uni_modules/mx-ui";
+
+const type = ref("fans");
+const typeList = ref<MxTabsItem[]>([
+	{
+		label: "我的粉丝",
+		value: "fans"
+	},
+	{
+		label: "我的关注",
+		value: "follow"
+	}
+]);
+</script>

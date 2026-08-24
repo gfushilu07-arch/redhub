@@ -1,0 +1,47 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-slide-verify
+					v-model="status"
+					@success="onSuccess"
+					@fail="onFail"
+				></mx-slide-verify>
+			</demo-item>
+
+			<demo-item :label="t('没有错误提示')">
+				<mx-slide-verify :show-fail="false"></mx-slide-verify>
+			</demo-item>
+
+			<demo-item :label="t('转动图片')">
+				<mx-slide-verify
+					mode="image"
+					image-url="https://unix.redhub.example/images/demo/avatar.jpg"
+				></mx-slide-verify>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import { t } from "@/.mx";
+import { useUi } from "@/uni_modules/mx-ui";
+
+const ui = useUi();
+
+const status = ref(false);
+
+function onSuccess() {
+	ui.showToast({
+		message: t("验证通过")
+	});
+}
+
+function onFail() {
+	ui.showToast({
+		message: t("验证失败")
+	});
+}
+</script>

@@ -1,0 +1,149 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-input></mx-input>
+			</demo-item>
+
+			<demo-item :label="t('数字输入')">
+				<mx-input type="number"></mx-input>
+			</demo-item>
+
+			<demo-item :label="t('密码输入')">
+				<mx-input password></mx-input>
+			</demo-item>
+
+			<demo-item :label="t('可清除')">
+				<mx-input clearable :pt="{ className: 'mb-2' }"></mx-input>
+
+				<demo-tips>设置 hold-keyboard 属性后，清除内容时输入框将保持聚焦状态</demo-tips>
+
+				<mx-input clearable hold-keyboard></mx-input>
+			</demo-item>
+
+			<demo-item :label="t('左右插槽')">
+				<mx-input
+					:pt="{
+						className: '!pr-1 mb-2'
+					}"
+				>
+					<template #append>
+						<mx-button
+							type="primary"
+							size="small"
+							icon="send-plane-fill"
+							:pt="{
+								className: 'ml-2'
+							}"
+							@tap="toAlert"
+						></mx-button>
+					</template>
+				</mx-input>
+
+				<mx-input
+					:pt="{
+						className: '!pl-1'
+					}"
+				>
+					<template #prepend>
+						<mx-button
+							type="primary"
+							size="small"
+							icon="search-line"
+							:pt="{
+								className: 'mr-2'
+							}"
+							@tap="toAlert"
+						></mx-button>
+					</template>
+				</mx-input>
+			</demo-item>
+
+			<demo-item :label="t('保留精度')">
+				<demo-tips>当 type 为 digit 时，可设置 precision 属性来保留精度</demo-tips>
+
+				<mx-input type="digit" :precision="precision"></mx-input>
+
+				<mx-list border :pt="{ className: 'mt-5' }">
+					<mx-list-item :label="t('精度')">
+						<mx-input-number v-model="precision"></mx-input-number>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+
+			<demo-item :label="t('自定义')">
+				<mx-input
+					v-model="content"
+					:border="isBorder"
+					:suffix-icon="isRightIcon ? 'text' : ''"
+					:prefix-icon="isLeftIcon ? 'search-line' : ''"
+					:disabled="isDisabled"
+					:pt="{
+						className: parseClass({
+							'!bg-sky-100': isColor,
+							'!border-sky-700': isColor
+						}),
+						inner: {
+							className: parseClass({
+								'!text-sky-700': isColor
+							})
+						},
+						prefixIcon: {
+							className: parseClass({
+								'!text-sky-700': isColor
+							})
+						}
+					}"
+				></mx-input>
+
+				<mx-list border :pt="{ className: 'mt-5' }">
+					<mx-list-item :label="t('边框')">
+						<mx-switch v-model="isBorder"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('左图标')">
+						<mx-switch v-model="isLeftIcon"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('右图标')">
+						<mx-switch v-model="isRightIcon"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('禁用')">
+						<mx-switch v-model="isDisabled"></mx-switch>
+					</mx-list-item>
+
+					<mx-list-item :label="t('其他颜色')">
+						<mx-switch v-model="isColor"></mx-switch>
+					</mx-list-item>
+				</mx-list>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import DemoItem from "../components/item.uvue";
+import DemoTips from "../components/tips.uvue";
+import { parseClass, t } from "@/.mx";
+import { useUi } from "@/uni_modules/mx-ui";
+
+const ui = useUi();
+
+const content = ref("RedHub Mx");
+
+const isBorder = ref(true);
+const isLeftIcon = ref(true);
+const isRightIcon = ref(false);
+const isDisabled = ref(false);
+const isColor = ref(false);
+
+const precision = ref<number>(2);
+
+function toAlert() {
+	ui.showToast({
+		message: "Hello"
+	});
+}
+</script>

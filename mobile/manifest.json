@@ -1,0 +1,83 @@
+{
+    "name" : "RedHub Mx",
+    "appid" : "__UNI__651711F",
+    "description" : "RedHub 移动端 Mx UI 框架",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "uni-app-x" : {},
+    "quickapp" : {},
+    "mp-weixin" : {
+        "darkmode" : true,
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : true
+        },
+        "usingComponents" : true
+    },
+    "mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "uniStatistics" : {
+        "enable" : false
+    },
+    "vueVersion" : "3",
+    "app" : {
+        "distribute" : {
+            "icons" : {
+                "android" : {
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : "",
+                    "xxxhdpi" : ""
+                }
+            }
+        }
+    },
+    "web" : {
+        "darkmode" : true,
+        "router" : {
+            "mode" : "",
+            "base" : "./"
+        },
+        "title" : "RedHub Mx"
+    },
+    "app-harmony" : {
+        "distribute" : {
+            "bundleName" : "com.gfushilu07.redhub",
+            "icons" : {
+                "foreground" : "static/logo2.png",
+                "background" : "static/logo2.png"
+            }
+        }
+    },
+    "app-android" : {
+        "distribute" : {
+            "modules" : {},
+            "icons" : {
+                "hdpi" : "static/logo.png",
+                "xhdpi" : "static/logo.png",
+                "xxhdpi" : "static/logo.png",
+                "xxxhdpi" : "static/logo.png"
+            },
+            "splashScreens" : {
+                "default" : {}
+            }
+        }
+    },
+    "app-ios" : {
+        "distribute" : {
+            "modules" : {},
+            "icons" : {
+                "appstore" : "docs/logo.png"
+            },
+            "splashScreens" : {}
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<mx-list>
+				<mx-list-item :label="t('开启通知')">
+					<mx-switch></mx-switch>
+				</mx-list-item>
+			</mx-list>
+		</view>
+	</mx-page>
+</template>
+
+<script setup lang="ts">
+import { t } from "@/.mx";
+</script>

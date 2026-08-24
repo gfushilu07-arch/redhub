@@ -1,0 +1,45 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<demo-item :label="t('基础用法')">
+				<mx-button @click="toggle">{{ visible ? t("点击收起") : t("点击展开") }}</mx-button>
+
+				<mx-collapse v-model="visible">
+					<mx-text
+						>云想衣裳花想容，春风拂槛露华浓，若非群玉山头见，会向瑶台月下逢。</mx-text
+					>
+				</mx-collapse>
+			</demo-item>
+
+			<demo-item :label="t('ref 方式调用')">
+				<mx-button @click="refToggle">{{ t("点击展开") }}</mx-button>
+
+				<mx-collapse ref="collapseRef">
+					<view class="bg-surface-100 p-3 rounded-xl dark:!bg-surface-700">
+						<mx-text
+							>云想衣裳花想容，春风拂槛露华浓，若非群玉山头见，会向瑶台月下逢。</mx-text
+						>
+					</view>
+				</mx-collapse>
+			</demo-item>
+		</view>
+	</mx-page>
+</template>
+
+<script lang="ts" setup>
+import { t } from "@/.mx";
+import DemoItem from "../components/item.uvue";
+import { ref } from "vue";
+
+const visible = ref(false);
+
+function toggle() {
+	visible.value = !visible.value;
+}
+
+const collapseRef = ref<MxCollapseComponentPublicInstance | null>(null);
+
+function refToggle() {
+	collapseRef.value!.toggle();
+}
+</script>
