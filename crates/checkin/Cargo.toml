@@ -1,0 +1,15 @@
+[package]
+name = "checkin"
+description = "Check-in middleware: QR code, GPS, face verify integration"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+common.workspace = true
+sea-orm.workspace = true
+axum.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+serde_json.workspace = true
+utoipa.workspace = true

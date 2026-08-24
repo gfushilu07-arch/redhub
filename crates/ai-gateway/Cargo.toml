@@ -1,0 +1,18 @@
+[package]
+name = "ai-gateway"
+description = "AI Gateway: unified routing, quota, audit, Sunlab integration"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+common.workspace = true
+reqwest.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+serde_json.workspace = true
+deadpool-redis.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+anyhow.workspace = true
+async-trait.workspace = true

@@ -1,0 +1,17 @@
+[package]
+name = "platform"
+description = "Platform foundation: tenant, org, user, role, permission, audit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+common.workspace = true
+sea-orm.workspace = true
+axum.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+jsonwebtoken.workspace = true
+argon2.workspace = true
+deadpool-redis.workspace = true
+utoipa.workspace = true

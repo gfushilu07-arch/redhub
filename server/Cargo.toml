@@ -1,0 +1,38 @@
+[package]
+name = "redhub-server"
+description = "RedHub main server binary"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "redhub-server"
+path = "src/main.rs"
+
+[dependencies]
+common.workspace = true
+platform.workspace = true
+party.workspace = true
+learning.workspace = true
+service.workspace = true
+grid.workspace = true
+workflow.workspace = true
+ai-gateway.workspace = true
+checkin.workspace = true
+payment.workspace = true
+
+axum.workspace = true
+tokio.workspace = true
+tower.workspace = true
+tower-http.workspace = true
+sea-orm.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+anyhow.workspace = true
+deadpool-redis.workspace = true
+utoipa.workspace = true
+utoipa-swagger-ui.workspace = true

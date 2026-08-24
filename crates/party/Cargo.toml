@@ -1,0 +1,22 @@
+[package]
+name = "party"
+description = "Party affairs: members, meetings, development, dues"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+common.workspace = true
+platform.workspace = true
+workflow.workspace = true
+checkin.workspace = true
+sea-orm.workspace = true
+axum.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+anyhow.workspace = true
+async-trait.workspace = true
+utoipa.workspace = true

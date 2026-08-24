@@ -1,0 +1,18 @@
+[package]
+name = "service"
+description = "Services: activities, venues, complaints, wishes"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+common.workspace = true
+platform.workspace = true
+workflow.workspace = true
+checkin.workspace = true
+payment.workspace = true
+sea-orm.workspace = true
+axum.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+utoipa.workspace = true

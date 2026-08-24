@@ -1,0 +1,84 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/common",
+    "crates/platform",
+    "crates/party",
+    "crates/learning",
+    "crates/service",
+    "crates/grid",
+    "crates/workflow",
+    "crates/ai-gateway",
+    "crates/checkin",
+    "crates/payment",
+    "migration",
+    "server",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+# Web framework
+axum = { version = "0.8", features = ["ws", "multipart", "macros"] }
+tokio = { version = "1", features = ["full"] }
+tower = { version = "0.5", features = ["full"] }
+tower-http = { version = "0.6", features = ["cors", "trace", "compression-gzip", "fs", "limit"] }
+
+# Database
+sea-orm = { version = "1.1", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
+sea-orm-migration = { version = "1.1", features = ["sqlx-postgres", "runtime-tokio-rustls"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Auth & Crypto
+jsonwebtoken = "9"
+argon2 = "0.5"
+
+# Redis
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
+deadpool-redis = "0.18"
+
+# WASM sandbox
+wasmtime = { version = "26", features = ["runtime", "cranelift"] }
+
+# API docs
+utoipa = { version = "5", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "8", features = ["axum"] }
+
+# Logging & tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Utilities
+uuid = { version = "1", features = ["v7", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2"
+anyhow = "1"
+async-trait = "0.1"
+reqwest = { version = "0.12", features = ["json", "gzip"] }
+
+# Internal crates
+common = { path = "crates/common" }
+platform = { path = "crates/platform" }
+party = { path = "crates/party" }
+learning = { path = "crates/learning" }
+service = { path = "crates/service" }
+grid = { path = "crates/grid" }
+workflow = { path = "crates/workflow" }
+ai-gateway = { path = "crates/ai-gateway" }
+checkin = { path = "crates/checkin" }
+payment = { path = "crates/payment" }
+
+[profile.release]
+lto = true
+strip = true
+opt-level = 3
+
+[profile.dev]
+opt-level = 0
+debug = 1

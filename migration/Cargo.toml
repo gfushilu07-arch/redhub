@@ -1,0 +1,12 @@
+[package]
+name = "migration"
+description = "Database migrations for RedHub"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+sea-orm-migration.workspace = true
+tokio.workspace = true
+async-trait = "0.1"

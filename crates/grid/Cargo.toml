@@ -1,0 +1,16 @@
+[package]
+name = "grid"
+description = "Grid events: reporting, dispatch, resolution"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+common.workspace = true
+platform.workspace = true
+workflow.workspace = true
+sea-orm.workspace = true
+axum.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+utoipa.workspace = true
