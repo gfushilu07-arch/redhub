@@ -7,6 +7,7 @@ import type { MxBackTopProps } from "./components/mx-back-top/props";
 import type { MxBadgeProps, MxBadgePassThrough } from "./components/mx-badge/props";
 import type { MxBannerProps, MxBannerPassThrough } from "./components/mx-banner/props";
 import type { MxButtonProps, MxButtonPassThrough } from "./components/mx-button/props";
+import type { MxCardProps, MxCardPassThrough } from "./components/mx-card/props";
 import type { MxCalendarProps, MxCalendarPassThrough } from "./components/mx-calendar/props";
 import type { MxCalendarSelectProps, MxCalendarSelectPassThrough } from "./components/mx-calendar-select/props";
 import type { MxCascaderProps, MxCascaderPassThrough } from "./components/mx-cascader/props";
@@ -37,6 +38,7 @@ import type { MxListViewProps, MxListViewPassThrough } from "./components/mx-lis
 import type { MxLoadingProps, MxLoadingPassThrough } from "./components/mx-loading/props";
 import type { MxLoadmoreProps, MxLoadmorePassThrough } from "./components/mx-loadmore/props";
 import type { MxMarqueeProps, MxMarqueePassThrough } from "./components/mx-marquee/props";
+import type { MxMetricProps, MxMetricPassThrough } from "./components/mx-metric/props";
 import type { MxNoticebarProps, MxNoticebarPassThrough } from "./components/mx-noticebar/props";
 import type { MxPageProps } from "./components/mx-page/props";
 import type { MxPaginationProps, MxPaginationPassThrough } from "./components/mx-pagination/props";
@@ -50,6 +52,7 @@ import type { MxRateProps, MxRatePassThrough } from "./components/mx-rate/props"
 import type { MxReadMoreProps, MxReadMorePassThrough } from "./components/mx-read-more/props";
 import type { MxRowProps, MxRowPassThrough } from "./components/mx-row/props";
 import type { MxSafeAreaProps, MxSafeAreaPassThrough } from "./components/mx-safe-area/props";
+import type { MxSectionProps, MxSectionPassThrough } from "./components/mx-section/props";
 import type { MxSelectProps, MxSelectPassThrough } from "./components/mx-select/props";
 import type { MxSelectDateProps, MxSelectDatePassThrough } from "./components/mx-select-date/props";
 import type { MxSelectSeatProps } from "./components/mx-select-seat/props";
@@ -87,6 +90,7 @@ declare module "vue" {
 		"mx-badge": (typeof import('./components/mx-badge/mx-badge.uvue')['default']) & import('vue').DefineComponent<MxBadgeProps>;
 		"mx-banner": (typeof import('./components/mx-banner/mx-banner.uvue')['default']) & import('vue').DefineComponent<MxBannerProps>;
 		"mx-button": (typeof import('./components/mx-button/mx-button.uvue')['default']) & import('vue').DefineComponent<MxButtonProps>;
+		"mx-card": (typeof import('./components/mx-card/mx-card.uvue')['default']) & import('vue').DefineComponent<MxCardProps>;
 		"mx-calendar": (typeof import('./components/mx-calendar/mx-calendar.uvue')['default']) & import('vue').DefineComponent<MxCalendarProps>;
 		"mx-calendar-select": (typeof import('./components/mx-calendar-select/mx-calendar-select.uvue')['default']) & import('vue').DefineComponent<MxCalendarSelectProps>;
 		"mx-cascader": (typeof import('./components/mx-cascader/mx-cascader.uvue')['default']) & import('vue').DefineComponent<MxCascaderProps>;
@@ -117,6 +121,7 @@ declare module "vue" {
 		"mx-loading": (typeof import('./components/mx-loading/mx-loading.uvue')['default']) & import('vue').DefineComponent<MxLoadingProps>;
 		"mx-loadmore": (typeof import('./components/mx-loadmore/mx-loadmore.uvue')['default']) & import('vue').DefineComponent<MxLoadmoreProps>;
 		"mx-marquee": (typeof import('./components/mx-marquee/mx-marquee.uvue')['default']) & import('vue').DefineComponent<MxMarqueeProps>;
+		"mx-metric": (typeof import('./components/mx-metric/mx-metric.uvue')['default']) & import('vue').DefineComponent<MxMetricProps>;
 		"mx-noticebar": (typeof import('./components/mx-noticebar/mx-noticebar.uvue')['default']) & import('vue').DefineComponent<MxNoticebarProps>;
 		"mx-page": (typeof import('./components/mx-page/mx-page.uvue')['default']) & import('vue').DefineComponent<MxPageProps>;
 		"mx-pagination": (typeof import('./components/mx-pagination/mx-pagination.uvue')['default']) & import('vue').DefineComponent<MxPaginationProps>;
@@ -130,6 +135,7 @@ declare module "vue" {
 		"mx-read-more": (typeof import('./components/mx-read-more/mx-read-more.uvue')['default']) & import('vue').DefineComponent<MxReadMoreProps>;
 		"mx-row": (typeof import('./components/mx-row/mx-row.uvue')['default']) & import('vue').DefineComponent<MxRowProps>;
 		"mx-safe-area": (typeof import('./components/mx-safe-area/mx-safe-area.uvue')['default']) & import('vue').DefineComponent<MxSafeAreaProps>;
+		"mx-section": (typeof import('./components/mx-section/mx-section.uvue')['default']) & import('vue').DefineComponent<MxSectionProps>;
 		"mx-select": (typeof import('./components/mx-select/mx-select.uvue')['default']) & import('vue').DefineComponent<MxSelectProps>;
 		"mx-select-date": (typeof import('./components/mx-select-date/mx-select-date.uvue')['default']) & import('vue').DefineComponent<MxSelectDateProps>;
 		"mx-select-seat": (typeof import('./components/mx-select-seat/mx-select-seat.uvue')['default']) & import('vue').DefineComponent<MxSelectSeatProps>;

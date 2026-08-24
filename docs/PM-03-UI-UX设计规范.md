@@ -2,9 +2,9 @@
 
 | 属性 | 值 |
 |------|-----|
-| 文档版本 | V1.0 |
+| 文档版本 | V1.1 |
 | 上游依赖 | PM-01 产品需求文档 |
-| 下游消费者 | FE-01 (移动端), FE-02 (管理端) |
+| 下游消费者 | FE-01 (移动端), FE-02 (管理端), FE-03 (Mx UI 设计系统) |
 | 设计原则 | 政务严肃感 + 现代简洁 + 无障碍友好 |
 
 ---
@@ -261,3 +261,18 @@ space-12 = 48px
 - 首次加载：Skeleton 骨架图（形状匹配实际内容）
 - 分页加载：底部 Loadmore 组件
 - 操作提交：Button loading 态，防止重复提交
+
+---
+
+## 9. Mx UI 实现映射
+
+PM-03 的移动端 Token 由 RedHub Mx UI 实现，实现细节见 `FE-03-Mx-UI设计系统.md`。
+
+| 规范层 | 当前实现 |
+| --- | --- |
+| 品牌色与表面色 | `mobile/tailwind.config.ts` + `.mx/theme` |
+| 系统亮暗主题 | `mobile/theme.json` |
+| 页面容器 | `mx-page`、`mx-section` |
+| 内容容器 | `mx-card` |
+| 指标展示 | `mx-metric`、`mx-rolling-number` |
+| 组件验收 | `pages/demo/design/system.uvue` |

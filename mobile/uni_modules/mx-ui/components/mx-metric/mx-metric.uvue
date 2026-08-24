@@ -1,0 +1,131 @@
+<template>
+	<view
+		class="mx-metric"
+		:class="[
+			{
+				'is-dark': isDark,
+				'is-clickable': clickable
+			},
+			pt.className
+		]"
+		:hover-class="clickable ? 'opacity-80' : ''"
+		:hover-stay-time="80"
+	>
+		<view
+			class="mx-metric__icon"
+			:class="isDark ? 'bg-surface-700' : 'bg-primary-50'"
+			v-if="icon != ''"
+		>
+			<mx-icon :name="icon" :size="18" color="primary"></mx-icon>
+		</view>
+		<mx-text :size="12" color="info" :pt="{ className: parseClass(pt.label?.className) }">{{ label }}</mx-text>
+		<mx-text :size="20" :pt="{ className: parseClass(['mx-metric__value font-bold mt-2', pt.value?.className]) }">{{ value }}</mx-text>
+		<view class="mx-metric__trend" v-if="trend != ''">
+			<mx-icon
+				:name="trendIcon"
+				:size="12"
+				:color="trendColor"
+				:pt="{ className: 'mr-1' }"
+				v-if="trendIcon != ''"
+			></mx-icon>
+			<mx-text
+				:size="11"
+				:color="trendColor"
+				:pt="{ className: pt.trend?.className }"
+				>{{ trend }}</mx-text
+			>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import { computed } from "vue";
+	import { isDark, parseClass, parsePt } from "@/.mx";
+
+	defineOptions({
+		name: "mx-metric"
+	});
+
+	const props = defineProps({
+		pt: {
+			type: Object,
+			default: () => ({})
+		},
+		label: {
+			type: String,
+			default: ""
+		},
+		value: {
+			type: [Number, String],
+			default: 0
+		},
+		trend: {
+			type: String,
+			default: ""
+		},
+		trendType: {
+			type: String,
+			default: "flat"
+		},
+		icon: {
+			type: String,
+			default: ""
+		},
+		clickable: {
+			type: Boolean,
+			default: false
+		}
+	});
+
+	type PassThrough = {
+		className?: string;
+		icon?: { className?: string };
+		label?: { className?: string };
+		value?: { className?: string };
+		trend?: { className?: string };
+	};
+
+	const pt = computed(() => parsePt<PassThrough>(props.pt));
+	const trendIcon = computed(() => {
+		if (props.trendType == "up") return "arrow-up-line";
+		if (props.trendType == "down") return "arrow-down-line";
+		return "";
+	});
+	const trendColor = computed(() => {
+		if (props.trendType == "up") return "success";
+		if (props.trendType == "down") return "error";
+		return "info";
+	});
+</script>
+
+<style lang="scss" scoped>
+.mx-metric {
+	background-color: #ffffff;
+	border-radius: 14px;
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	transition-duration: 0.2s;
+	transition-property: background-color, opacity;
+
+	&.is-dark {
+		background-color: #1e293b;
+	}
+
+}
+
+.mx-metric__icon {
+	@apply flex flex-row items-center justify-center;
+	@apply rounded-[10px] mb-[10px];
+
+	height: 32px;
+	width: 32px;
+}
+
+.mx-metric__trend {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	margin-top: 6px;
+}
+</style>

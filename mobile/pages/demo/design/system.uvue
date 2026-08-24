@@ -1,0 +1,58 @@
+<template>
+	<mx-page>
+		<view class="p-3">
+			<mx-section title="页面区块" description="统一 16px 页边距、24px 区块间距和 14px 卡片圆角。">
+				<template #action>
+					<mx-tag rounded>4px Grid</mx-tag>
+				</template>
+
+				<mx-card title="组织活动" subtitle="近 30 天" shadow>
+					<mx-text :size="13" color="info">使用 Card 承载同一段业务信息，避免多个容器样式漂移。</mx-text>
+					<template #footer>
+						<mx-button size="small" text>查看详情</mx-button>
+					</template>
+				</mx-card>
+			</mx-section>
+
+			<mx-section title="指标卡" description="用于首页、驾驶舱和个人中心的重点数据。">
+				<mx-row :gutter="10">
+					<mx-col :span="6">
+						<mx-metric label="党员人数" value="1286" trend="+3.2%" trend-type="up" icon="group-line"></mx-metric>
+					</mx-col>
+					<mx-col :span="6">
+						<mx-metric label="待办事项" value="18" trend="-2件" trend-type="down" icon="file-copy-line"></mx-metric>
+					</mx-col>
+				</mx-row>
+			</mx-section>
+
+			<mx-section title="内容卡片" description="无边框、阴影和分区内容可按信息密度组合。">
+				<mx-row :gutter="10">
+					<mx-col :span="6">
+						<mx-card :padded="false">
+							<view class="demo-media"></view>
+							<view class="p-3">
+								<mx-text :size="14" :pt="{ className: 'font-bold' }">服务指南</mx-text>
+								<mx-text :size="12" color="info" :pt="{ className: 'mt-1' }">办理流程与材料清单</mx-text>
+							</view>
+						</mx-card>
+					</mx-col>
+					<mx-col :span="6">
+						<mx-card bordered>
+							<mx-text :size="14" :pt="{ className: 'font-bold' }">通知公告</mx-text>
+							<mx-text :size="12" color="info" :pt="{ className: 'mt-2' }">本月主题党日活动报名开始。</mx-text>
+						</mx-card>
+					</mx-col>
+				</mx-row>
+			</mx-section>
+		</view>
+	</mx-page>
+</template>
+
+<script setup lang="ts"></script>
+
+<style lang="scss" scoped>
+.demo-media {
+	background-color: #ffe3e8;
+	height: 82px;
+}
+</style>

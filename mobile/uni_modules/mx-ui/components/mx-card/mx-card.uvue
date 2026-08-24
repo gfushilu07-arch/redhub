@@ -1,0 +1,151 @@
+<template>
+	<view
+		class="mx-card"
+		:class="[
+			{
+				'is-dark': isDark,
+				'is-bordered': bordered,
+				'is-shadow': shadow
+			},
+			pt.className
+		]"
+	>
+		<view class="mx-card__header" :class="pt.header?.className" v-if="showHeader">
+			<view class="mx-card__heading">
+				<mx-text
+					:size="16"
+					:pt="{ className: parseClass(['mx-card__title font-bold', pt.title?.className]) }"
+					v-if="title != ''"
+					>{{ title }}</mx-text
+				>
+				<mx-text
+					:size="12"
+					color="info"
+					:pt="{ className: parseClass(['mx-card__subtitle mt-1', pt.subtitle?.className]) }"
+					v-if="subtitle != ''"
+					>{{ subtitle }}</mx-text
+				>
+			</view>
+			<view class="mx-card__extra" v-if="get(slots, 'extra') != null">
+				<slot name="extra"></slot>
+			</view>
+		</view>
+
+		<view class="mx-card__body" :class="[pt.body?.className, { 'p-4': padded }]">
+			<slot></slot>
+		</view>
+
+		<view
+			class="mx-card__footer"
+			:style="{ borderTopColor: isDark ? '#374151' : '#f3f4f6' }"
+			v-if="get(slots, 'footer') != null"
+		>
+			<slot name="footer"></slot>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+import { computed, useSlots } from "vue";
+import { get, isDark, parseClass, parsePt } from "@/.mx";
+
+defineOptions({
+	name: "mx-card"
+});
+
+const props = defineProps({
+	pt: {
+		type: Object,
+		default: () => ({})
+	},
+	title: {
+		type: String,
+		default: ""
+	},
+	subtitle: {
+		type: String,
+		default: ""
+	},
+	bordered: {
+		type: Boolean,
+		default: true
+	},
+	shadow: {
+		type: Boolean,
+		default: false
+	},
+	padded: {
+		type: Boolean,
+		default: true
+	}
+});
+
+const slots = useSlots();
+
+type PassThrough = {
+	className?: string;
+	header?: { className?: string };
+	title?: { className?: string };
+	subtitle?: { className?: string };
+	extra?: { className?: string };
+	body?: { className?: string };
+	footer?: { className?: string };
+};
+
+const pt = computed(() => parsePt<PassThrough>(props.pt));
+const showHeader = computed(() => props.title != "" || props.subtitle != "" || get(slots, "extra") != null);
+</script>
+
+<style lang="scss" scoped>
+.mx-card {
+	background-color: #ffffff;
+	border-radius: 14px;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	transition-duration: 0.2s;
+	transition-property: background-color, border-color;
+
+	&.is-dark {
+		background-color: #1e293b;
+	}
+
+	&.is-bordered {
+		border: 1px solid #e5e7eb;
+	}
+
+	&.is-dark.is-bordered {
+		border-color: #374151;
+	}
+
+	&.is-shadow {
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	}
+}
+
+.mx-card__header {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	padding: 16px 16px 0;
+}
+
+.mx-card__heading {
+	display: flex;
+	flex-direction: column;
+	margin-right: auto;
+}
+
+.mx-card__extra {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.mx-card__footer {
+	border-top: 1px solid #f3f4f6;
+	display: flex;
+	flex-direction: row;
+	padding: 12px 16px;
+}
+</style>

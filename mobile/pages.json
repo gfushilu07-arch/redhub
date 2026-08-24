@@ -104,6 +104,12 @@
 			"root": "pages/demo",
 			"pages": [
 				{
+					"path": "design/system",
+					"style": {
+						"navigationBarTitleText": "设计系统"
+					}
+				},
+				{
 					"path": "basic/text",
 					"style": {
 						"navigationBarTitleText": "Text 文本"

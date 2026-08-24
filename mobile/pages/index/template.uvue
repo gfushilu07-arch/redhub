@@ -41,6 +41,15 @@ type Item = {
 
 const list = computed<Item[]>(() => [
 	{
+		label: "设计系统",
+		children: [
+			{
+				label: "容器与指标",
+				path: "/pages/demo/design/system"
+			}
+		]
+	},
+	{
 		label: t("社交"),
 		children: [
 			{

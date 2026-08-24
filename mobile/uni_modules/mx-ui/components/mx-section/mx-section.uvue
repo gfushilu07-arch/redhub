@@ -1,0 +1,90 @@
+<template>
+	<view class="mx-section" :class="pt.className">
+		<view class="mx-section__header" :class="pt.header?.className">
+			<view class="mx-section__heading">
+				<mx-text
+					:size="14"
+					:pt="{ className: parseClass(['mx-section__title font-bold', pt.title?.className]) }"
+					v-if="title != ''"
+					>{{ title }}</mx-text
+				>
+				<mx-text
+					:size="12"
+					color="info"
+					:pt="{ className: parseClass(['mx-section__description mt-1', pt.description?.className]) }"
+					v-if="description != ''"
+					>{{ description }}</mx-text
+				>
+			</view>
+			<view class="mx-section__action" :class="pt.action?.className" v-if="get(slots, 'action') != null">
+				<slot name="action"></slot>
+			</view>
+		</view>
+		<view class="mx-section__body">
+			<slot></slot>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+import { computed, useSlots } from "vue";
+import { get, parseClass, parsePt } from "@/.mx";
+
+defineOptions({
+	name: "mx-section"
+});
+
+const props = defineProps({
+	pt: {
+		type: Object,
+		default: () => ({})
+	},
+	title: {
+		type: String,
+		default: ""
+	},
+	description: {
+		type: String,
+		default: ""
+	}
+});
+
+const slots = useSlots();
+
+type PassThrough = {
+	className?: string;
+	header?: { className?: string };
+	title?: { className?: string };
+	description?: { className?: string };
+	action?: { className?: string };
+};
+
+const pt = computed(() => parsePt<PassThrough>(props.pt));
+</script>
+
+<style lang="scss" scoped>
+.mx-section {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 24px;
+}
+
+.mx-section__header {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 12px;
+}
+
+.mx-section__heading {
+	display: flex;
+	flex-direction: column;
+	margin-right: auto;
+}
+
+.mx-section__action {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+</style>

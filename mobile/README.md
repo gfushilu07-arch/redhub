@@ -4,7 +4,7 @@ RedHub 移动端框架基于 [Cool Unix](https://github.com/cool-team-official/c
 
 ## 当前能力
 
-- App 级 uni-app x 组件体系，覆盖基础、表单、列表、反馈、布局和平台能力。
+- App 级 uni-app x 组件体系，覆盖基础、表单、列表、反馈、布局、平台能力和设计系统容器。
 - 政务红设计令牌：`#C41E3A` 主色、中性表面色、亮暗双主题。
 - DCloud 官方 AI Rules 与 `uni-app-x-mcp` 项目级配置。
 - 登录页、产品化首页、我的页和组件演示区骨架。
