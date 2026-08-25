@@ -8,7 +8,7 @@
 				'mx-input--border': border,
 				'mx-input--focus': isFocus,
 				'mx-input--disabled': isDisabled,
-				'mx-input--error': isError
+				'mx-input--error': isError || invalid
 			}
 		]"
 		@tap="onTap"
@@ -60,11 +60,11 @@
 			<mx-icon
 				:name="suffixIcon"
 				:size="pt.suffixIcon?.size ?? 16"
-				:pt="{ className: parseClass([pt.prefixIcon?.className]) }"
+				:pt="{ className: parseClass([pt.suffixIcon?.className]) }"
 			></mx-icon>
 		</view>
 
-		<view class="mx-input__icon" @tap="clear" v-if="showClear">
+		<view class="mx-input__icon mx-input__action" @tap.stop="clear" v-if="showClear">
 			<mx-icon
 				name="close-circle-fill"
 				:size="16"
@@ -72,7 +72,7 @@
 			></mx-icon>
 		</view>
 
-		<view class="mx-input__icon" @tap="showPassword" v-if="password">
+		<view class="mx-input__icon mx-input__action" @tap.stop="showPassword" v-if="password">
 			<mx-icon
 				:name="isPassword ? 'eye-line' : 'eye-off-line'"
 				:size="16"
@@ -134,6 +134,11 @@ const props = defineProps({
 	},
 	// 是否禁用
 	disabled: {
+		type: Boolean,
+		default: false
+	},
+	// 外部校验错误状态
+	invalid: {
 		type: Boolean,
 		default: false
 	},
@@ -256,7 +261,8 @@ const inputStyle = computed(() => {
 
 // 占位符样式
 const placeholderStyle = computed(() => {
-	return `font-size: ${fontSize.value}; color: ${getColor("surface-400")}; ${props.placeholderStyle}`;
+	const color = isDark.value ? getColor("surface-300") : getColor("surface-600");
+	return `font-size: ${fontSize.value}; color: ${color}; ${props.placeholderStyle}`;
 });
 
 // 绑定值
@@ -294,7 +300,9 @@ function showPassword() {
 
 // 点击事件
 function onTap() {
-	isFocus.value = true;
+	if (!isDisabled.value && props.readonly != true) {
+		isFocus.value = true;
+	}
 }
 
 // 获取焦点事件
@@ -391,11 +399,12 @@ defineExpose({
 
 <style lang="scss">
 .mx-input {
-	@apply flex flex-row items-center bg-white duration-200;
-	@apply rounded-lg;
-	height: 32px;
-	padding: 0 10px;
-	transition-property: background-color, border-color;
+	@apply flex flex-row items-center bg-white;
+	height: 44px;
+	padding: 0 12px;
+	border-radius: 10px;
+	transition-duration: 0.15s;
+	transition-property: background-color, border-color, box-shadow;
 
 	&__inner {
 		@apply h-full text-surface-700;
@@ -419,22 +428,30 @@ defineExpose({
 		padding-left: 10px;
 	}
 
+	&__action {
+		width: 44px;
+		margin-right: -12px;
+		padding-left: 0;
+	}
+
 	&--border {
 		@apply border border-solid border-surface-200;
 	}
 
 	&--disabled {
-		@apply bg-surface-100 opacity-70;
+		@apply bg-surface-100;
 	}
 
 	&--focus {
 		&.mx-input--border {
 			@apply border-primary-500;
+			box-shadow: 0 0 0 2px rgba(196, 30, 58, 0.15);
 		}
 	}
 
 	&--error {
-		@apply border-red-500;
+		@apply border-red-600;
+		box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.14);
 	}
 
 	&.is-dark {
@@ -445,11 +462,17 @@ defineExpose({
 
 			&.mx-input--focus {
 				@apply border-primary-500;
+				box-shadow: 0 0 0 2px rgba(251, 96, 121, 0.2);
 			}
 		}
 
 		&.mx-input--disabled {
 			@apply bg-surface-700;
+		}
+
+		&.mx-input--error {
+			@apply border-red-500;
+			box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
 		}
 	}
 }

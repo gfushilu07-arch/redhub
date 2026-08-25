@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T00:00:00+08:00",
+  "title": "Design System: RedHub Mx UI",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "政务绯红",
+        "canonical": "#C41E3A",
+        "tonalRamp": ["#310310", "#580B1C", "#6D0C20", "#870F26", "#A81630", "#C41E3A", "#FF94A5", "#FFF1F3"]
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "服务蓝",
+        "canonical": "#1A6FB5",
+        "tonalRamp": ["#0B2740", "#103B60", "#145087", "#1A6FB5", "#3587CB", "#64A5DB", "#A9D0EC", "#EEF7FD"]
+      },
+      "success": {
+        "role": "success",
+        "displayName": "通过绿",
+        "canonical": "#22C55E",
+        "tonalRamp": ["#052E16", "#14532D", "#166534", "#15803D", "#16A34A", "#22C55E", "#86EFAC", "#F0FDF4"]
+      },
+      "warning": {
+        "role": "warning",
+        "displayName": "待办琥珀",
+        "canonical": "#F59E0B",
+        "tonalRamp": ["#451A03", "#78350F", "#92400E", "#B45309", "#D97706", "#F59E0B", "#FCD34D", "#FFFBEB"]
+      },
+      "danger": {
+        "role": "danger",
+        "displayName": "驳回红",
+        "canonical": "#EF4444",
+        "tonalRamp": ["#450A0A", "#7F1D1D", "#991B1B", "#B91C1C", "#DC2626", "#EF4444", "#FCA5A5", "#FEF2F2"]
+      },
+      "surface-page": {
+        "role": "neutral",
+        "displayName": "页面灰白",
+        "canonical": "#FAFAFA",
+        "tonalRamp": ["#18181B", "#27272A", "#3F3F46", "#52525B", "#71717A", "#A1A1AA", "#E4E4E7", "#FAFAFA"]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "正文墨色",
+        "canonical": "#18181B",
+        "tonalRamp": ["#09090B", "#18181B", "#27272A", "#3F3F46", "#52525B", "#71717A", "#A1A1AA", "#FAFAFA"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "关键数据", "purpose": "仅用于驾驶舱核心数字和短标题。" },
+      "headline": { "displayName": "页面标题", "purpose": "标识当前页面或主任务。" },
+      "title": { "displayName": "区块标题", "purpose": "用于页面分组和卡片标题。" },
+      "body": { "displayName": "正文", "purpose": "默认业务内容、表单和按钮标签。" },
+      "label": { "displayName": "辅助标签", "purpose": "状态、时间和短辅助说明。" }
+    },
+    "shadows": [
+      { "name": "surface-low", "value": "0 1px 3px rgba(0,0,0,.08)", "purpose": "仅用于确有轻微悬浮关系的重点对象。" },
+      { "name": "overlay", "value": "0 8px 24px rgba(0,0,0,.10)", "purpose": "弹窗、抽屉和浮层。" },
+      { "name": "focus-primary", "value": "0 0 0 2px rgba(196,30,58,.15)", "purpose": "表单控件与键盘操作的可感知聚焦环。" }
+    ],
+    "motion": [
+      { "name": "motion-fast", "value": "150ms cubic-bezier(0.25, 1, 0.5, 1)", "purpose": "按下、悬停和颜色反馈。" },
+      { "name": "motion-normal", "value": "250ms cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "展开、切换和页面内状态变化。" },
+      { "name": "reduced-motion", "value": "0ms linear", "purpose": "系统要求减少动态效果时移除位移和缩放。" }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "375px" },
+      { "name": "tablet", "value": "768px" },
+      { "name": "desktop", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "提交、确认和发起流程的唯一主动作。",
+      "html": "<button class=\"ds-button-primary\">提交申请</button>",
+      "css": ".ds-button-primary{height:44px;padding:0 16px;border:1px solid #C41E3A;border-radius:10px;background:#C41E3A;color:#fff;font:600 14px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;transition:background-color 150ms cubic-bezier(.25,1,.5,1),transform 150ms cubic-bezier(.25,1,.5,1)}.ds-button-primary:hover{background:#A81630}.ds-button-primary:active{transform:scale(.97)}.ds-button-primary:focus-visible{outline:3px solid rgba(196,30,58,.22);outline-offset:2px}.ds-button-primary:disabled{border-color:#D4D4D8;background:#D4D4D8;color:#71717A}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "与主动作并列的取消、返回或次级命令。",
+      "html": "<button class=\"ds-button-secondary\">查看详情</button>",
+      "css": ".ds-button-secondary{height:44px;padding:0 16px;border:1px solid #1A6FB5;border-radius:10px;background:#fff;color:#1A6FB5;font:500 14px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;transition:background-color 150ms cubic-bezier(.25,1,.5,1),transform 150ms cubic-bezier(.25,1,.5,1)}.ds-button-secondary:hover{background:#EEF7FD}.ds-button-secondary:active{transform:scale(.97)}.ds-button-secondary:focus-visible{outline:3px solid rgba(26,111,181,.2);outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "单行信息录入，包含明确占位、聚焦与错误状态。",
+      "html": "<input class=\"ds-input\" value=\"红星社区党委\" aria-label=\"组织名称\">",
+      "css": ".ds-input{width:280px;height:44px;padding:0 12px;border:1px solid #E4E4E7;border-radius:10px;background:#fff;color:#18181B;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;transition:border-color 150ms cubic-bezier(.25,1,.5,1),box-shadow 150ms cubic-bezier(.25,1,.5,1)}.ds-input::placeholder{color:#52525B}.ds-input:focus{border-color:#C41E3A;box-shadow:0 0 0 2px rgba(196,30,58,.15);outline:none}.ds-input[aria-invalid=true]{border-color:#EF4444;box-shadow:0 0 0 2px rgba(239,68,68,.14)}"
+    },
+    {
+      "name": "Status Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "用浅底深字显示流程状态或对象分类。",
+      "html": "<span class=\"ds-status-tag\">待审核</span>",
+      "css": ".ds-status-tag{display:inline-flex;align-items:center;height:26px;padding:0 10px;border:1px solid #FCD34D;border-radius:6px;background:#FFFBEB;color:#92400E;font:600 12px/1 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif}"
+    },
+    {
+      "name": "Task Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "承载一个待办对象及其状态和下一步动作。",
+      "html": "<article class=\"ds-task-card\"><div><strong>发展对象材料审核</strong><p>红星社区第一党支部 · 今天 16:00 前</p></div><span>待审核</span></article>",
+      "css": ".ds-task-card{display:flex;align-items:center;justify-content:space-between;gap:16px;width:320px;padding:16px;border:1px solid #E4E4E7;border-radius:14px;background:#fff;color:#18181B;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif}.ds-task-card strong{font-size:14px}.ds-task-card p{margin:6px 0 0;color:#52525B;font-size:12px}.ds-task-card span{flex:none;padding:6px 9px;border-radius:6px;background:#FFFBEB;color:#92400E;font-size:12px;font-weight:600}.ds-task-card:focus-within{box-shadow:0 0 0 2px rgba(196,30,58,.15)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "秩序化的服务台",
+    "overview": "RedHub 的界面应像一张被认真整理过的工作台：当前身份、流程状态、任务优先级和下一步操作一眼可见。视觉服务于办事和协作，不承担营销展示职责。",
+    "keyCharacteristics": [
+      "低噪声的信息结构，清晰区分页面、区块、对象与动作层级。",
+      "政务红仅用于主动作、选中态和身份信号，蓝色承担链接与信息动作，语义色表达状态。",
+      "App 级触控密度，移动端交互目标不小于 44×44px。",
+      "亮暗主题采用相同的信息层级和状态词汇，不通过简单反色完成适配。"
+    ],
+    "rules": [
+      { "name": "The Task Context Rule", "body": "每个任务页面必须让用户持续看见租户、组织、身份或流程上下文；不能为了“干净”而删掉决定操作含义的信息。", "section": "overview" },
+      { "name": "The One Primary Action Rule", "body": "一个视口或操作区只保留一个视觉主动作；其他动作降级为描边、文本或菜单。", "section": "overview" },
+      { "name": "The Crimson Signal Rule", "body": "政务红是信号，不是背景材质。禁止连续多个大面积红色容器，也禁止让信息、警告和错误共用品牌红表达。", "section": "colors" },
+      { "name": "The Semantic Status Rule", "body": "成功、待处理、失败和信息必须使用固定语义色并同时配合文字或图标；颜色永远不是唯一信息载体。", "section": "colors" },
+      { "name": "The Scannable Hierarchy Rule", "body": "页面标题、区块标题、对象标题、正文和辅助信息必须至少通过字号、字重和间距中的两项建立差异；禁止只靠颜色深浅区分层级。", "section": "typography" },
+      { "name": "The Earned Elevation Rule", "body": "只有元素确实位于另一个元素之上时才能使用阴影。", "section": "elevation" }
+    ],
+    "dos": [
+      "Do 使用 4px 间距网格、16px 页面边距、24px 区块间距和至少 44×44px 的触控目标。",
+      "Do 在亮色与暗色主题下分别验证正文、占位文字、状态文字和禁用文字的对比度。",
+      "Do 为每个异步动作提供加载、成功、失败和可重试状态，并保持布局稳定。",
+      "Do 让租户、组织、身份、权限和流程状态在相关任务页面持续可见。",
+      "Do 优先复用 mx-* 组件和语义令牌，将跨业务可复用模式沉淀到 Mx UI。"
+    ],
+    "donts": [
+      "Don't 做成老式政府门户：禁止密集栏目、横幅堆叠、厚重边框和过时拟物效果。",
+      "Don't 做成通用低质小程序 UI：禁止模板化九宫格、随意圆角和无差别卡片。",
+      "Don't 使用装饰性卡片网格与营销式构图，业务页面不是落地页或功能宣传页。",
+      "Don't 制作单一红色界面；政务红不能覆盖大多数表面，也不能替代全部语义色。",
+      "Don't 使用紫色渐变、玻璃拟态、超大 Hero、渐变文字或纯氛围装饰。",
+      "Don't 使用重新发明的陌生控件，或让侧边粗色条承担卡片、列表和警告的装饰。",
+      "Don't 用颜色或动画作为唯一状态表达，也不要让长文字溢出按钮、标签和卡片。"
+    ]
+  }
+}

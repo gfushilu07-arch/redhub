@@ -158,23 +158,27 @@ const color = computed(() => {
 	if (props.color != "") {
 		switch (props.color) {
 			case "primary":
-				return ctx.color["primary-500"] as string;
+				return isDark.value
+					? (ctx.color["primary-300"] as string)
+					: (ctx.color["primary-600"] as string);
 			case "success":
-				return "#22c55e";
+				return isDark.value ? "#86efac" : "#15803d";
 			case "warn":
-				return "#eab308";
+				return isDark.value ? "#fde047" : "#a16207";
 			case "error":
-				return "#ef4444";
+				return isDark.value ? "#fca5a5" : "#dc2626";
 			case "info":
 				return isDark.value
 					? (ctx.color["surface-300"] as string)
-					: (ctx.color["surface-500"] as string);
+					: (ctx.color["surface-600"] as string);
 			case "dark":
 				return ctx.color["surface-700"] as string;
 			case "light":
 				return ctx.color["surface-50"] as string;
 			case "disabled":
-				return ctx.color["surface-400"] as string;
+				return isDark.value
+					? (ctx.color["surface-400"] as string)
+					: (ctx.color["surface-600"] as string);
 			default:
 				return props.color;
 		}

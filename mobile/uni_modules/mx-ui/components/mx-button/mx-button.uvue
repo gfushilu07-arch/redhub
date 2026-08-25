@@ -12,6 +12,7 @@
 				'mx-button--rounded': rounded,
 				'mx-button--icon': isIcon,
 				'mx-button--hover': isHover,
+				'mx-button--focus': isFocus,
 				'is-dark': isDark,
 				'is-fluid': fluid
 			},
@@ -60,6 +61,8 @@
 			@touchstart="onTouchStart"
 			@touchend="onTouchEnd"
 			@touchcancel="onTouchCancel"
+			@focus="onFocus"
+			@blur="onBlur"
 		></button>
 
 		<mx-loading
@@ -104,7 +107,7 @@
 
 <script setup lang="ts">
 import { computed, ref, useSlots, type PropType } from "vue";
-import { get, isDark, parseClass, parsePt, useCache } from "@/.mx";
+import { get, getColor, isDark, parseClass, parsePt, useCache } from "@/.mx";
 import type { MxIconProps } from "../mx-icon/props";
 import type { MxButtonType, Size } from "../../types";
 import type { MxLoadingProps } from "../mx-loading/props";
@@ -338,6 +341,10 @@ const isIcon = computed(() => get(slots, "default") == null && get(slots, "conte
 
 // 文本颜色
 const textColor = computed(() => {
+	if (props.disabled) {
+		return isDark.value ? getColor("surface-300") : getColor("surface-600");
+	}
+
 	if (props.color != "") {
 		return props.color;
 	}
@@ -345,10 +352,24 @@ const textColor = computed(() => {
 	let color = "light";
 
 	if (props.text) {
-		color = props.type;
-
-		if (props.disabled) {
-			color = "disabled";
+		switch (props.type) {
+			case "primary":
+				color = isDark.value ? getColor("primary-300") : getColor("primary-600");
+				break;
+			case "success":
+				color = isDark.value ? getColor("green-300") : getColor("green-700");
+				break;
+			case "warn":
+				color = isDark.value ? getColor("yellow-300") : getColor("yellow-700");
+				break;
+			case "error":
+				color = isDark.value ? getColor("red-300") : getColor("red-600");
+				break;
+			case "info":
+				color = isDark.value ? getColor("surface-200") : getColor("surface-600");
+				break;
+			default:
+				color = props.type;
 		}
 	}
 
@@ -414,6 +435,8 @@ const buttonStyle = computed(() => {
 
 // 是否禁用状态
 const isDisabled = computed(() => props.disabled || props.loading);
+
+const isFocus = ref(false);
 
 // 点击事件处理
 function onTap(e: UniPointerEvent) {
@@ -512,6 +535,14 @@ function onTouchEnd() {
 function onTouchCancel() {
 	isHover.value = false;
 }
+
+function onFocus() {
+	isFocus.value = true;
+}
+
+function onBlur() {
+	isFocus.value = false;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -519,8 +550,8 @@ function onTouchCancel() {
 	@apply flex flex-row items-center justify-center relative box-border;
 	@apply border border-transparent border-solid;
 	overflow: visible;
-	transition-duration: 0.3s;
-	transition-property: background-color, border-color, opacity;
+	transition-duration: 0.15s;
+	transition-property: background-color, border-color, box-shadow, opacity, transform;
 
 	&__clicker {
 		@apply absolute p-0 m-0;
@@ -530,35 +561,35 @@ function onTouchCancel() {
 	}
 
 	&--small {
-		height: 24px;
+		height: 44px;
 		padding: 0 11px;
-		border-radius: 6px;
-
-		&.mx-button--icon {
-			padding: 0;
-			width: 24px;
-		}
-	}
-
-	&--normal {
-		height: 32px;
-		padding: 0 15px;
 		border-radius: 8px;
 
 		&.mx-button--icon {
 			padding: 0;
-			width: 32px;
+			width: 44px;
+		}
+	}
+
+	&--normal {
+		height: 44px;
+		padding: 0 15px;
+		border-radius: 10px;
+
+		&.mx-button--icon {
+			padding: 0;
+			width: 44px;
 		}
 	}
 
 	&--large {
-		height: 40px;
+		height: 48px;
 		padding: 0 19px;
 		border-radius: 10px;
 
 		&.mx-button--icon {
 			padding: 0;
-			width: 40px;
+			width: 48px;
 		}
 	}
 
@@ -579,50 +610,50 @@ function onTouchCancel() {
 	}
 
 	&--warn {
-		@apply bg-yellow-500;
+		@apply bg-yellow-700;
 
 		&.mx-button--hover {
-			@apply bg-yellow-600;
+			@apply bg-yellow-800;
 		}
 
 		&.mx-button--border {
-			@apply border-yellow-500;
+			@apply border-yellow-700;
 		}
 	}
 
 	&--error {
-		@apply bg-red-500;
+		@apply bg-red-600;
 
 		&.mx-button--hover {
-			@apply bg-red-600;
+			@apply bg-red-700;
 		}
 
 		&.mx-button--border {
-			@apply border-red-500;
+			@apply border-red-600;
 		}
 	}
 
 	&--info {
-		@apply bg-surface-500;
+		@apply bg-surface-700;
 
 		&.mx-button--hover {
-			@apply bg-surface-600;
+			@apply bg-surface-800;
 		}
 
 		&.mx-button--border {
-			@apply border-surface-500;
+			@apply border-surface-700;
 		}
 	}
 
 	&--success {
-		@apply bg-green-500;
+		@apply bg-green-700;
 
 		&.mx-button--hover {
-			@apply bg-green-600;
+			@apply bg-green-800;
 		}
 
 		&.mx-button--border {
-			@apply border-green-500;
+			@apply border-green-700;
 		}
 	}
 
@@ -649,7 +680,7 @@ function onTouchCancel() {
 	}
 
 	&--disabled {
-		@apply bg-surface-300;
+		@apply bg-surface-200;
 
 		&.mx-button--border {
 			@apply border-surface-300;
@@ -657,12 +688,20 @@ function onTouchCancel() {
 	}
 
 	&--loading {
-		opacity: 0.6;
+		opacity: 0.72;
+	}
+
+	&--hover {
+		transform: scale(0.97);
+	}
+
+	&--focus {
+		box-shadow: 0 0 0 2px rgba(196, 30, 58, 0.2);
 	}
 
 	&.is-dark {
 		&.mx-button--disabled {
-			@apply bg-surface-400;
+			@apply bg-surface-700;
 
 			&.mx-button--border {
 				@apply border-surface-500;
@@ -682,7 +721,7 @@ function onTouchCancel() {
 		@apply bg-transparent;
 
 		&.mx-button--hover {
-			@apply bg-transparent opacity-50;
+			@apply bg-transparent opacity-75;
 		}
 	}
 

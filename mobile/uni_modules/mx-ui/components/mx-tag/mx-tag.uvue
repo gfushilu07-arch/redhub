@@ -6,6 +6,7 @@
 			{
 				'mx-tag--rounded': rounded,
 				'mx-tag--plain': plain,
+				'mx-tag--closable': closable,
 				'is-dark': isDark
 			},
 			pt.className
@@ -15,7 +16,7 @@
 		<mx-icon
 			:size="12"
 			:name="icon"
-			color="white"
+			:color="color"
 			:pt="{ className: 'mr-1 ml-[-2px]' }"
 			v-if="icon != ''"
 		></mx-icon>
@@ -30,14 +31,9 @@
 			<slot></slot>
 		</mx-text>
 
-		<mx-icon
-			:size="12"
-			name="close-circle-line"
-			color="white"
-			:pt="{ className: 'ml-1 mr-[-2px]' }"
-			@tap="close"
-			v-if="closable"
-		></mx-icon>
+		<view class="mx-tag__close" @tap.stop="close" v-if="closable">
+			<mx-icon :size="14" name="close-line" :color="color"></mx-icon>
+		</view>
 	</view>
 </template>
 
@@ -103,48 +99,79 @@ function close() {
 
 // 颜色
 const color = computed(() => {
-	if (isDark.value && props.type == "info") {
-		return "white";
+	if (isDark.value) {
+		switch (props.type) {
+			case "primary":
+				return "#ffc2cb";
+			case "success":
+				return "#86efac";
+			case "warn":
+				return "#fde047";
+			case "error":
+				return "#fca5a5";
+			default:
+				return "#e4e4e7";
+		}
 	}
 
-	if (props.plain) {
-		return props.type;
-	} else {
-		return "white";
+	switch (props.type) {
+		case "primary":
+			return "#870f26";
+		case "success":
+			return "#166534";
+		case "warn":
+			return "#854d0e";
+		case "error":
+			return "#991b1b";
+		default:
+			return "#3f3f46";
 	}
 });
 </script>
 
 <style lang="scss" scoped>
 .mx-tag {
-	@apply flex flex-row items-center justify-center;
-	@apply px-3 rounded-md;
-	height: 24px;
-	transition-duration: 0.2s;
+	@apply flex flex-row items-center justify-center relative;
+	padding: 0 10px;
+	height: 26px;
+	border-radius: 6px;
+	transition-duration: 0.15s;
 	transition-property: background-color, border-color;
+
+	&__close {
+		@apply absolute flex flex-row items-center justify-center;
+		right: -8px;
+		width: 44px;
+		height: 44px;
+	}
+
+	&--closable {
+		padding-right: 36px;
+		overflow: visible;
+	}
 
 	&--rounded {
 		@apply rounded-full;
 	}
 
 	&--primary {
-		@apply bg-primary-500;
+		@apply bg-primary-50;
 	}
 
 	&--success {
-		@apply bg-green-500;
+		@apply bg-green-50;
 	}
 
 	&--warn {
-		@apply bg-yellow-500;
+		@apply bg-yellow-50;
 	}
 
 	&--error {
-		@apply bg-red-500;
+		@apply bg-red-50;
 	}
 
 	&--info {
-		@apply bg-surface-500;
+		@apply bg-surface-100;
 	}
 
 	&--plain {
@@ -152,27 +179,53 @@ const color = computed(() => {
 		@apply border border-solid border-primary-500;
 
 		&.mx-tag--primary {
-			@apply border-primary-500;
+			@apply border-primary-600;
 		}
 
 		&.mx-tag--success {
-			@apply border-green-500;
+			@apply border-green-700;
 		}
 
 		&.mx-tag--warn {
-			@apply border-yellow-500;
+			@apply border-yellow-700;
 		}
 
 		&.mx-tag--error {
-			@apply border-red-500;
+			@apply border-red-600;
 		}
 
 		&.mx-tag--info {
-			@apply border-surface-500;
+			@apply border-surface-600;
 
 			&.is-dark {
 				@apply border-surface-300;
 			}
+		}
+	}
+
+	&.is-dark {
+		&.mx-tag--primary {
+			@apply bg-primary-950;
+		}
+
+		&.mx-tag--success {
+			@apply bg-green-950;
+		}
+
+		&.mx-tag--warn {
+			@apply bg-yellow-950;
+		}
+
+		&.mx-tag--error {
+			@apply bg-red-950;
+		}
+
+		&.mx-tag--info {
+			@apply bg-surface-800;
+		}
+
+		&.mx-tag--plain {
+			@apply bg-transparent;
 		}
 	}
 }

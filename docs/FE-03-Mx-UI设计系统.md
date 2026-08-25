@@ -2,7 +2,7 @@
 
 | 属性 | 内容 |
 | --- | --- |
-| 版本 | V1.0 |
+| 版本 | V1.1 |
 | 上游规范 | PM-03 UI/UX 设计规范 |
 | 实现目录 | `mobile/uni_modules/mx-ui` |
 | 运行时 | uni-app x / UTS / Tailwind Token |
@@ -35,6 +35,18 @@
 | `space-6` | 24px | 区块间距 |
 | radius-lg | 14px | 卡片、弹窗 |
 | touch-min | 44px | 可点击元素最小高度 |
+
+### 2.3 控件状态
+
+| 组件 | 默认尺寸 | 必须支持的状态 |
+| --- | --- | --- |
+| `mx-button` | small/normal 44px，large 48px | pressed、focus、disabled、loading |
+| `mx-input` | 44px | focus、disabled、`invalid`、form error |
+| `mx-textarea` | 内容区默认 88px | focus、disabled、`invalid`、form error |
+| `mx-tag` | 26px | solid、plain、dark、closable |
+| `mx-badge` | 18px；dot 8px | 五类语义色、定位模式 |
+
+`invalid` 用于接口返回、跨字段校验等不依赖 `mx-form-item` 的错误状态；表单规则错误继续由 `useFormItem()` 自动注入。两种来源使用同一错误视觉，不允许业务层复制边框样式。
 
 ## 3. 核心容器组件
 
@@ -103,8 +115,18 @@
 4. **类型完备**：新增组件必须导出 `MxXxxProps` 和 PassThrough 类型。
 5. **演示覆盖**：新增组件必须进入 `pages/demo/design/system.uvue` 或对应分类演示页。
 6. **无障碍**：正文对比度不低于 AA；可点击区域不低于 44×44px。
+7. **状态完备**：交互组件必须在设计系统演示页展示 default、pressed/focus、disabled、loading、error 中适用的状态。
 
-## 5. 版本策略
+## 5. 验收页面
+
+`pages/demo/design/system.uvue` 是 Mx UI 的跨组件验收面，至少覆盖：
+
+- 主动作、次动作、危险动作、加载与禁用按钮。
+- 默认、禁用、独立 `invalid` 输入框和多行输入。
+- primary/success/warn/error/info 标签、可关闭标签和徽标。
+- 页面区块、业务卡片和指标组件在亮暗主题下的组合效果。
+
+## 6. 版本策略
 
 - `mx-ui` 只保留通用 UI 能力，业务字段和接口类型禁止进入该模块。
 - 破坏性 Props 必须先新增兼容参数、标记废弃，再在大版本移除。

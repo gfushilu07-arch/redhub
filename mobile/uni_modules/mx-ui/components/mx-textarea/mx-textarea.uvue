@@ -8,7 +8,7 @@
 				'mx-textarea--border': border,
 				'mx-textarea--focus': isFocus,
 				'mx-textarea--disabled': isDisabled,
-				'mx-textarea--error': isError
+				'mx-textarea--error': isError || invalid
 			}
 		]"
 		@tap="onTap"
@@ -92,6 +92,11 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	},
+	// 外部校验错误状态
+	invalid: {
+		type: Boolean,
+		default: false
+	},
 	// 是否只读
 	readonly: {
 		type: Boolean,
@@ -150,7 +155,7 @@ const props = defineProps({
 	// 高度
 	height: {
 		type: [Number, String],
-		default: 70
+		default: 88
 	},
 	// 是否自动增高
 	autoHeight: {
@@ -268,7 +273,8 @@ const textareaStyle = computed(() => {
 
 // 占位符样式
 const placeholderStyle = computed(() => {
-	return `font-size: ${fontSize.value}; color: ${getColor("surface-400")}; ${props.placeholderStyle}`;
+	const color = isDark.value ? getColor("surface-300") : getColor("surface-600");
+	return `font-size: ${fontSize.value}; color: ${color}; ${props.placeholderStyle}`;
 });
 
 // 绑定值
@@ -282,7 +288,9 @@ const isFocusing = ref<boolean>(props.autofocus);
 
 // 点击事件
 function onTap() {
-	isFocus.value = true;
+	if (!isDisabled.value && props.readonly != true) {
+		isFocus.value = true;
+	}
 }
 
 // 获取焦点事件
@@ -357,10 +365,10 @@ defineExpose({
 <style lang="scss" scoped>
 .mx-textarea {
 	@apply flex flex-row items-center bg-white;
-	@apply rounded-lg;
-	padding: 8px 10px;
-	transition-property: border-color, background-color;
-	transition-duration: 0.2s;
+	padding: 12px;
+	border-radius: 10px;
+	transition-property: border-color, background-color, box-shadow;
+	transition-duration: 0.15s;
 
 	:deep(.uni-textarea-compute) {
 		opacity: 0;
@@ -387,14 +395,16 @@ defineExpose({
 
 	&--focus {
 		@apply border-primary-500;
+		box-shadow: 0 0 0 2px rgba(196, 30, 58, 0.15);
 	}
 
 	&--disabled {
-		@apply bg-surface-100 opacity-70;
+		@apply bg-surface-100;
 	}
 
 	&--error {
-		@apply border-red-500;
+		@apply border-red-600;
+		box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.14);
 	}
 
 	&.is-dark {
@@ -405,11 +415,17 @@ defineExpose({
 
 			&.mx-textarea--focus {
 				@apply border-primary-500;
+				box-shadow: 0 0 0 2px rgba(251, 96, 121, 0.2);
 			}
 		}
 
 		&.mx-textarea--disabled {
 			@apply bg-surface-700;
+		}
+
+		&.mx-textarea--error {
+			@apply border-red-500;
+			box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
 		}
 	}
 }
